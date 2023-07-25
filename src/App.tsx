@@ -8,9 +8,8 @@ function App() {
   return (
       <div style={styles.App}>
         <Header />
-
         {/*<Main/>*/}
-        <Home/>
+        {/*<Home/>*/}
       </div>
   );
 }
