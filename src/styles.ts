@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import {background} from "./constants/images";
+import { background } from "./constants/images";
 
 const styles: { [key: string]: CSSProperties } = {
     App: {
@@ -7,6 +7,7 @@ const styles: { [key: string]: CSSProperties } = {
         height: '100vh',
         backgroundImage: `url(${background})`,
         backgroundSize: "cover",
+        overflow: 'hidden'
     },
 };
 

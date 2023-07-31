@@ -1,97 +1,101 @@
-// Header.tsx
-import React, { useState } from 'react';
-import { logo, profile } from "../../../constants/images";
-import styles from "./styles";
-import {api} from "../../../api/api";
+// components/project/header/header.tsx
+import React, { useState, useEffect } from 'react';
+import { logo, profile } from '../../../constants/images';
+import styles from './styles';
+import { usePersonId } from '../../../api/getPersonId/getPersonId';
+import AuthModal from "../AuthModal/AuthModal";
+import LogoutModal from "../LogoutModal/LogoutModal";
 
-function Header() {
-    const [isModalOpen, setModalOpen] = useState<boolean>(false);
-    const [inn, setInn] = useState<string>('');
-    const [dateOfBirth, setDateOfBirth] = useState<string>('');
+interface HeaderProps {
+    isAuthorized: boolean;
+    setIsAuthorized: (isAuthorized: boolean) => void;
+}
 
-    const handleHomeClick = () => {
-        setModalOpen(true);
+function Header({ isAuthorized, setIsAuthorized }: HeaderProps) {
+    const [isLoginModalOpen, setLoginModalOpen] = useState<boolean>(false);
+    const [isLogoutModalOpen, setLogoutModalOpen] = useState<boolean>(false);
+    const { personId, getPersonId } = usePersonId();
+
+    useEffect(() => {
+        const savedPersonId = localStorage.getItem('personId');
+        if (savedPersonId) {
+            setIsAuthorized(true);
+        }
+    }, [setIsAuthorized]);
+
+    const openLoginModal = () => {
+        setLoginModalOpen(true);
     };
 
-    const handleModalClose = () => {
-        setModalOpen(false);
+    const closeLoginModal = () => {
+        setLoginModalOpen(false);
     };
 
-    const handleInnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInn(event.target.value);
+    const openLogoutModal = () => {
+        setLogoutModalOpen(true);
     };
 
-    const handleDateOfBirthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDateOfBirth(event.target.value);
+    const closeLogoutModal = () => {
+        setLogoutModalOpen(false);
     };
 
-    const handleLogin = async () => {
-/*        try {
-            const requestData = {
-                inn: inn,
-                birthday: dateOfBirth,
-            };
-
-            const response = await api("check-inn-birthday", "POST", requestData);
-
-            const personId = response.personId;
-            // Обработка personId
-            console.log("Person ID:", personId);
-
-            // Закрытие модального окна
-            setModalOpen(false);
+    const handleLogin = async (inn: string, dateOfBirth: string) => {
+        try {
+            await getPersonId(inn, dateOfBirth);
+            if (localStorage.getItem('personId') != null) {
+                setIsAuthorized(true);
+                closeLoginModal();
+            } else {
+                console.error('Ошибка получения personId');
+            }
         } catch (error) {
-            // Обработка ошибок
-            console.error("Error:", error);
-        }*/
+            console.error('Error:', error);
+        }
+    };
 
+    const handleLogout = () => {
+        localStorage.removeItem('personId');
+        localStorage.removeItem('patent');
+        setIsAuthorized(false);
+        closeLogoutModal();
     };
 
     return (
         <header style={styles.header}>
             <div style={styles.headerContainer}>
                 <div style={styles.itemContainer}>
-                    <img src={logo} alt="Логотип" />
+                    <img style={styles.logo} src={logo} alt="Логотип" />
                     <span style={styles.headerTitle}>Личный кабинет мигранта</span>
                 </div>
 
-                <div style={styles.itemContainer} onClick={handleHomeClick}>
-                    <img src={profile} alt="Профиль" />
-                    <span style={styles.headerTitle}>вход</span>
-                </div>
+                {isAuthorized ? (
+                    <div style={styles.itemContainer} onClick={openLogoutModal}>
+                        <img
+                            src={profile}
+                            alt="Профиль"
+                            style={styles.avatarImg}
+                        />
+                        <span style={{ ...styles.headerName, cursor: 'pointer' }}>Имени нет в ответе!</span>
+                    </div>
+                ) : (
+                    <div style={styles.itemContainer} onClick={openLoginModal}>
+                        <img src={profile} alt="Профиль" />
+                        <span style={styles.headerTitle}>вход</span>
+                    </div>
+                )}
             </div>
 
-            {isModalOpen && (
-                <div style={styles.modalOverlay}>
-                    <div style={styles.modal}>
-                        <div style={styles.modalHeader}>
-                            <span style={styles.modalTitle}>Вход</span>
-                            <span style={styles.modalCloseButton} onClick={handleModalClose}>
-                &times;
-              </span>
-                        </div>
-                        <div style={styles.modalContent}>
-                            <label style={styles.label}>ИНН</label>
-                            <input
-                                type="text"
-                                placeholder="Введите ваш ИНН"
-                                value={inn}
-                                onChange={handleInnChange}
-                                style={styles.inputField}
-                            />
-                            <label style={styles.label}>Дата рождения</label>
-                            <input
-                                type="date"
-                                placeholder="Введите вашу дату рождения"
-                                value={dateOfBirth}
-                                onChange={handleDateOfBirthChange}
-                                style={styles.inputField}
-                            />
-                            <button onClick={handleLogin} style={styles.modalButton}>Вход</button>
-                        </div>
-                    </div>
-                </div>
-            )}
+            <AuthModal
+                isOpen={isLoginModalOpen}
+                onClose={closeLoginModal}
+                onLogin={handleLogin}
+            />
+
+            <LogoutModal
+                isOpen={isLogoutModalOpen}
+                onClose={closeLogoutModal}
+                onLogout={handleLogout}
+            />
         </header>
     );
 }

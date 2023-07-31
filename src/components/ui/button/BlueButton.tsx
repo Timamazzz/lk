@@ -8,7 +8,7 @@ interface ButtonProps {
 
 function BlueButton({ text, onClick }: ButtonProps) {
     return (
-        <button style={styles.button} onClick={onClick}>{text}</button>
+        <button style={styles.button} onClick={()=>{onClick()}}>{text}</button>
     );
 }
 

@@ -1,57 +1,8 @@
+// styles.ts
 import { CSSProperties } from 'react';
 import { colors } from "../../../constants/colors";
 
 const styles: { [key: string]: CSSProperties } = {
-    header: {
-        backgroundColor: colors.white,
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: "100%",
-    },
-
-    headerContainer: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingTop: 11,
-        paddingBottom: 11,
-        paddingRight: 150,
-        paddingLeft: 150,
-    },
-
-    logo: {
-        width: 45,
-        height: 58,
-    },
-
-    itemContainer: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        cursor: "pointer",
-    },
-    headerTitle: {
-        color: colors.blue,
-        fontSize: 32,
-        fontFamily: 'Alumni Sans',
-        fontWeight: 500,
-        textTransform: 'uppercase',
-        marginLeft: 18,
-    },
-    headerName: {
-        color: colors.blue,
-        textAlign: 'right',
-        fontFamily: 'Exo 2',
-        fontSize: 18,
-        fontWeight: 400,
-    },
-    avatarImg: {
-        width: 29,
-        height: 29,
-        marginRight: 8,
-    },
     modalOverlay: {
         // Стили для оверлея модального окна
         position: "fixed",
