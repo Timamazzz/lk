@@ -55,6 +55,7 @@ function Header({ isAuthorized, setIsAuthorized }: HeaderProps) {
 
     const handleLogout = () => {
         localStorage.removeItem('personId');
+        localStorage.removeItem('name');
         localStorage.removeItem('patent');
         setIsAuthorized(false);
         closeLogoutModal();
@@ -75,7 +76,7 @@ function Header({ isAuthorized, setIsAuthorized }: HeaderProps) {
                             alt="Профиль"
                             style={styles.avatarImg}
                         />
-                        <span style={{ ...styles.headerName, cursor: 'pointer' }}>Имени нет в ответе!</span>
+                        <span style={{ ...styles.headerName, cursor: 'pointer' }}>{localStorage.getItem('name') !== undefined? localStorage.getItem('name') : 'Имени нет в ответе!'}</span>
                     </div>
                 ) : (
                     <div style={styles.itemContainer} onClick={openLoginModal}>

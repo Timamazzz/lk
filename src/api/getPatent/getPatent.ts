@@ -22,6 +22,8 @@ export async function getPatent(personId: string): Promise<Patent> {
 
         localStorage.setItem('patent', JSON.stringify(response));
 
+        console.log(response)
+        console.log(localStorage.getItem('personId'))
         return patentObj;
     } catch (error) {
         console.error('Error:', error);

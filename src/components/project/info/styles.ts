@@ -70,6 +70,18 @@ const styles: { [key: string]: CSSProperties } = {
     progress: {
         width: '100%',
         borderRadius: 0,
+        position: 'relative',
+        height: 20,
+        background: "red", // Set the background color for the unfilled portion
+    },
+
+    progressBar: {
+        height: '100%',
+        borderRadius: 0,
+        background: colors.green, // Set the color for the filled portion
+        position: 'absolute',
+        top: 0,
+        left: 0,
     },
     containerSchet: {
         display: 'flex',

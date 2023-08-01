@@ -10,9 +10,11 @@ export function usePersonId() {
 
             const response = await post('check-inn-birthday', requestData);
             const newPersonId = response.personId;
+            const newName = response.name;
 
             // Записываем полученный personId в Local Storage
             localStorage.setItem('personId', newPersonId);
+            localStorage.setItem('name', newName);
         } catch (error) {
             console.error('Error:', error);
         }

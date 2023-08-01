@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "./styles";
 import BlueButton from "../../ui/button/BlueButton";
 import {Patent} from "../../../Classes/Patent";
@@ -95,6 +95,7 @@ useEffect(()=>{
     const endDate = new Date(patentInfo[0].expirationDate);
 
     const remainingDays = daysRemainingBetweenDates(endDate);
+    const progressPercentage = (remainingDays / 365) * 100;
 
     const getTextColor = (remainingDays: number): string => {
         if (remainingDays <= 10) {
@@ -134,10 +135,6 @@ useEffect(()=>{
         setMounth(mounth - 1);
     }
   };
-
-  console.log('====================================');
-  console.log(patentInfo);
-  console.log('====================================');
 
     return (
         <>
@@ -192,7 +189,9 @@ useEffect(()=>{
                 </div>
                 {screens === 1?
                     <>
-                        <progress style={styles.progress} value={remainingDays} max={365} />
+                        <div style={styles.progress}>
+                            <div style={{ ...styles.progressBar, width: `${progressPercentage}%` }} />
+                        </div>
                         <p style={{ ...styles.text4, color: getTextColor(remainingDays) }}>
                             срок действия истекает через {remainingDays}
                         </p>
