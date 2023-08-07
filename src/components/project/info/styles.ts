@@ -132,8 +132,8 @@ const styles: { [key: string]: CSSProperties } = {
         alignItems: 'center',
         backgroundColor: colors.blue,
         padding: 2,
-        borderRadius: 3,
-        marginLeft: 23
+        borderRadius: 6,
+        marginLeft: 23,
     },
 
     fontWhite: {
@@ -232,6 +232,53 @@ const styles: { [key: string]: CSSProperties } = {
     buttonSpace: {
         marginRight: 15
     },
+    buttonSwitch: {
+        backgroundColor: colors.blue,
+        width: 49,
+        height: 23,
+        display: 'flex',
+        alignItems: 'center',
+        padding: 2,
+        borderRadius: 6,
+        position: "relative"
+    },
+    buttonSwitchGrey: {
+        backgroundColor: colors.gray,
+        width: 49,
+        height: 23,
+        display: 'flex',
+        alignItems: 'center',
+        padding: 2,
+        borderRadius: 6,
+        position: "relative"
+    },
+    buttonClickLeft: {
+        left: 2,
+        position: 'absolute',
+        borderRadius: 2,
+        backgroundColor: '#fff',
+        boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25);',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 19,
+        height: 19,
+        cursor: 'pointer'
+    },
+    buttonClickRight: {
+        right: 2,
+        position: 'absolute',
+        borderRadius: 2,
+        backgroundColor: '#fff',
+        boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25);',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 19,
+        height: 19,
+        cursor: 'pointer'
+    },
+
 };
 
 export default styles;
