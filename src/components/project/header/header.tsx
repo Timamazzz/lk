@@ -28,7 +28,7 @@ function Header({ isAuthorized, setIsAuthorized }: HeaderProps) {
     };
 
     const closeLoginModal = () => {
-        setLoginModalOpen(false);
+        setLoginModalOpen(true);
     };
 
     const openLogoutModal = () => {

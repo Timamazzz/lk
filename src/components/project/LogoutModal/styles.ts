@@ -14,6 +14,7 @@ const styles: { [key: string]: CSSProperties } = {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        zIndex: 10000
     },
     modal: {
         // Обновленные стили для контейнера модального окна

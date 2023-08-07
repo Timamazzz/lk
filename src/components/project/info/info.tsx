@@ -305,11 +305,33 @@ useEffect(()=>{
                                 <div style={styles.containerButt}>
                                     <p style={styles.textButt}>Включить задолженность</p>
                                     <div>
-                                    <input
-                                        type='checkbox'
-                                        checked={isDebtEnabled}
-                                        onChange={handleDebtToggle}
-                                    />
+                                    <div onClick={handleDebtToggle} style={!isDebtEnabled? styles.buttonSwitchGrey : styles.buttonSwitch}>
+                                        {!isDebtEnabled?
+                                              <div style={styles.buttonClickLeft}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 5 5" fill="none">
+                                                <circle cx="2.5" cy="2.5" r="2.5" fill="url(#paint0_linear_386_77)"/>
+                                                <defs>
+                                                    <linearGradient id="paint0_linear_386_77" x1="2.5" y1="0" x2="2.5" y2="5" gradientUnits="userSpaceOnUse">
+                                                    <stop stop-color="#5E5E5E"/>
+                                                    <stop offset="1" stop-color="#D9D9D9"/>
+                                                    </linearGradient>
+                                                </defs>
+                                                </svg>
+                                            </div>
+                                            :
+                                            <div style={styles.buttonClickRight}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="5" height="5" viewBox="0 0 5 5" fill="none">
+                                                <circle cx="2.5" cy="2.5" r="2.5" fill="url(#paint0_linear_386_77)"/>
+                                                <defs>
+                                                    <linearGradient id="paint0_linear_386_77" x1="2.5" y1="0" x2="2.5" y2="5" gradientUnits="userSpaceOnUse">
+                                                    <stop stop-color="#5E5E5E"/>
+                                                    <stop offset="1" stop-color="#D9D9D9"/>
+                                                    </linearGradient>
+                                                </defs>
+                                                </svg>
+                                            </div>
+                                        }
+                                    </div>
                                     </div>
                                 </div>
                             </div>
