@@ -80,7 +80,7 @@ function Header({ isAuthorized, setIsAuthorized }: HeaderProps) {
                     </div>
                 ) : (
                     <div style={styles.itemContainer} onClick={openLoginModal}>
-                        <img src={profile} alt="Профиль" />
+                        <img src={profile} alt="Профиль" style={styles.avatarImg} />
                         <span style={styles.headerTitle}>вход</span>
                     </div>
                 )}

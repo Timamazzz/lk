@@ -1,6 +1,6 @@
 // api.ts
-const apiUrl = "https://46.147.195.11:52000/patents/api";
-const apiKey = "92E0DD1A-E03C-4717-A5A8-11C8DB79DC00";
+const apiUrl = "https://89.109.238.137:49001/patents/api";
+const apiKey = "C0F7091E-6BA7-4DBA-9E60-20696016F306";
 
 async function sendRequest(url: string, requestOptions: RequestInit): Promise<any> {
     try {

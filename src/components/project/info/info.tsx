@@ -16,6 +16,7 @@ const [screens, setScreens] = useState(1);
 const [isDebtEnabled, setIsDebtEnabled] = useState(false);
 const [sliderValue, setSliderValue] = useState(0);
 const [mounth, setMounth] = useState(1);
+const [debtPrice, setDebtPrice] = useState(0);
 
 
 const storedData = localStorage.getItem('patent');
@@ -43,16 +44,16 @@ const [sum, setSum] = useState<any>(0)
 
 useEffect(()=>{
     if(patentInfo){
-        setSum(mounth * price)
+        setSum(mounth * price + debtPrice / 100)
     }
-},[mounth, patentInfo])
+},[mounth, debtPrice, patentInfo])
 
 const [qr, setQr] = useState('')
 
 useEffect(()=>{
     if(screens === 3){
         if (patentInfo) {
-            getQRCode(patentInfo[0]?.patentId, sum).then((resp:any)=>{
+            getQRCode(patentInfo[0]?.patentId, sum * 100 + debtPrice / 100).then((resp:any)=>{
             
                 setQr(resp.payInfo)
             })
@@ -75,6 +76,63 @@ useEffect(()=>{
             anchor.click();
         }
     };
+
+    //v1
+/*    const handleMailToClick = () => {
+        const subject = 'Тема вашего письма';
+
+        // Получаем текущее изображение QR-кода из холста
+        const canvas = document.querySelector("#qrcode-canvas") as HTMLCanvasElement;
+        const qrCodeBase64 = canvas.toDataURL('image/png').split(',')[1];
+
+        // Формируем тело письма с переносами строк и необходимыми данными
+        const body = `
+    <div>
+        <p>logo.png Заголовок</p>
+        <p>QRCode</p>
+        <img src="data:image/png;base64, ${qrCodeBase64}" alt="QR Code" style="display: block; margin: 0 auto; width: 150px; height: 150px;" />
+        <p>patent №: ${patentInfo[0]?.number != undefined ? patentInfo[0]?.number : ''}</p>
+        <p>выдан: ${patentInfo[0]?.issued != undefined ? patentInfo[0]?.issued : ''}</p>
+        <p>дата выдачи: ${patentInfo[0]?.dateOfIssue != undefined ? patentInfo[0]?.dateOfIssue : ''}</p>
+        <p>срок действия до: ${patentInfo[0]?.expirationDate != undefined ? patentInfo[0]?.expirationDate : ''}</p>
+        <p>сумма к оплате: ${sum}р</p>
+    </div>
+`;
+
+        // Создаем ссылку с протоколом "mailto"
+        const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        console.log("mailtoLink", mailtoLink)
+        // Открываем ссылку в новой вкладке
+        window.open(mailtoLink);
+    };*/
+
+    //v2
+    const handleMailToClick = () => {
+        const subject = 'Тема вашего письма';
+
+        // Формируем тело письма с необходимыми данными
+        const body = `
+    <div>
+        <p>logo.png Заголовок</p>
+        <p>QRCode</p>
+        <p>patent №: ${patentInfo[0]?.number != undefined ? patentInfo[0]?.number : ''}</p>
+        <p>выдан: ${patentInfo[0]?.issued != undefined ? patentInfo[0]?.issued : ''}</p>
+        <p>дата выдачи: ${patentInfo[0]?.dateOfIssue != undefined ? patentInfo[0]?.dateOfIssue : ''}</p>
+        <p>срок действия до: ${patentInfo[0]?.expirationDate != undefined ? patentInfo[0]?.expirationDate : ''}</p>
+        <p>сумма к оплате: asdadsa${sum}р</p>
+    </div>
+  `;
+
+        // Создаем ссылку с протоколом "mailto"
+        const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+        // Открываем ссылку в новой вкладке
+        window.open(mailtoLink);
+    };
+
+
+
+
     price = patentInfo[0]?.price != undefined && patentInfo[0].price / 100;
     function daysRemainingBetweenDates(endDate: Date): number {
         const oneDayMilliseconds = 24 * 60 * 60 * 1000; // количество миллисекунд в одном дне
@@ -82,7 +140,7 @@ useEffect(()=>{
         const startTime = today.getTime();
 
 /*        const yesterday = new Date(today);
-        yesterday.setDate(yesterday.getDate() - 1);
+        yesterday.setDate(yesterday.getDate() + 12);
 
         const endTime = yesterday.getTime();*/
 
@@ -100,13 +158,20 @@ useEffect(()=>{
     const getTextColor = (remainingDays: number): string => {
         if (remainingDays <= 10) {
             return "red";
-        } else if (remainingDays <= 20) {
-            return "yellow";
         } else {
             return colors.lightBlue;
         }
     };
 
+    const getTextColorProgress = (remainingDays: number): string => {
+        if (remainingDays <= 10) {
+            return "red";
+        } else if (remainingDays <= 20) {
+            return "yellow";
+        } else {
+            return colors.green;
+        }
+    };
     const handleButtonClick = () => {
         setScreens(2)
     };
@@ -120,6 +185,7 @@ useEffect(()=>{
     };
   
     const handleDebtToggle = () => {
+        isDebtEnabled? setDebtPrice(0) : setDebtPrice(patentInfo[0]?.debt)
       setIsDebtEnabled(!isDebtEnabled);
     };
 
@@ -190,7 +256,7 @@ useEffect(()=>{
                 {screens === 1?
                     <>
                         <div style={styles.progress}>
-                            <div style={{ ...styles.progressBar, width: `${progressPercentage}%` }} />
+                            <div style={{ ...styles.progressBar, width: `${progressPercentage}%` , background: getTextColorProgress(remainingDays)}} />
                         </div>
                         <p style={{ ...styles.text4, color: getTextColor(remainingDays) }}>
                             срок действия истекает через {remainingDays}
@@ -287,7 +353,10 @@ useEffect(()=>{
                                 </div>
                             </div>
                         </div>
-                        <BlueButton text={'Сохранить'} onClick={downloadQRCode} />
+                        <div style={{display: 'flex'}}>
+                            <BlueButton myStyles={styles.buttonSpace} text={'Сохранить'} onClick={downloadQRCode} />
+                            <BlueButton text={'Отправить'} onClick={handleMailToClick} />
+                        </div>
                     </div>
                 </div>
             </div>
