@@ -243,10 +243,10 @@ useEffect(()=>{
                             <p style={styles.text1}>Стоимость патента: </p>
                             <p style={styles.text3}>{patentInfo[0]?.price != undefined && patentInfo[0].price / 100}р</p>
                         </div>
-                        {patentInfo[0]?.debt < 0?
+                        {remainingDays < 0?
                             <div style={styles.main}>
                                 <p style={{...styles.text1, color: "red"}}>Задолжность дней: </p>
-                                <p style={{...styles.text3, color: "red"}}>{Math.abs(patentInfo[0]?.debt)}</p>
+                                <p style={{...styles.text3, color: "red"}}>{Math.abs(remainingDays)}</p>
                             </div>
                             :
                             <></>
@@ -258,9 +258,15 @@ useEffect(()=>{
                         <div style={styles.progress}>
                             <div style={{ ...styles.progressBar, width: `${progressPercentage}%` , background: getTextColorProgress(remainingDays)}} />
                         </div>
-                        <p style={{ ...styles.text4, color: getTextColor(remainingDays) }}>
-                            срок действия истекает через {remainingDays}
-                        </p>
+                        {remainingDays >= 0?
+                            <p style={{ ...styles.text4, color: getTextColor(remainingDays) }}>
+                                срок действия истекает через {remainingDays}
+                            </p>
+                            :
+                            <p style={{ ...styles.text4, color: getTextColor(remainingDays) }}>
+                                срок действия патента истек
+                            </p>
+                        }
                     </>
                     :
                     <>
