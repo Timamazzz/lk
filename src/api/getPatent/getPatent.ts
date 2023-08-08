@@ -20,10 +20,10 @@ export async function getPatent(personId: string): Promise<Patent> {
             messages
         );
 
-        localStorage.setItem('patent', JSON.stringify(response));
+        const sortedResponse = [...response];
+        sortedResponse.sort((a: any, b: any) => new Date(b.dateOfIssue).getTime() - new Date(a.dateOfIssue).getTime());
 
-        console.log(response)
-        console.log(localStorage.getItem('personId'))
+        localStorage.setItem('patent', JSON.stringify(sortedResponse));
         return patentObj;
     } catch (error) {
         console.error('Error:', error);

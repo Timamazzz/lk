@@ -21,6 +21,10 @@ function Header({ isAuthorized, setIsAuthorized }: HeaderProps) {
         if (savedPersonId) {
             setIsAuthorized(true);
         }
+        else
+        {
+            setLoginModalOpen(true);
+        }
     }, [setIsAuthorized]);
 
     const openLoginModal = () => {
@@ -28,7 +32,7 @@ function Header({ isAuthorized, setIsAuthorized }: HeaderProps) {
     };
 
     const closeLoginModal = () => {
-        setLoginModalOpen(true);
+        setLoginModalOpen(false);
     };
 
     const openLogoutModal = () => {
