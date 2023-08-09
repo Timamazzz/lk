@@ -150,7 +150,7 @@ useEffect(()=>{
         return Math.ceil(timeDiff / oneDayMilliseconds);
     }
   
-    const endDate = new Date(patentInfo[0].expirationDate);
+    const endDate = new Date(patentInfo[0].dateOfIssue);
 
     const remainingDays = daysRemainingBetweenDates(endDate);
     const progressPercentage = (remainingDays / 365) * 100;

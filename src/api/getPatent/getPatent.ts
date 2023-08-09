@@ -21,6 +21,7 @@ export async function getPatent(personId: string): Promise<Patent> {
         );
 
         const sortedResponse = [...response];
+        console.log(sortedResponse)
         sortedResponse.sort((a: any, b: any) => new Date(b.dateOfIssue).getTime() - new Date(a.dateOfIssue).getTime());
 
         localStorage.setItem('patent', JSON.stringify(sortedResponse));
