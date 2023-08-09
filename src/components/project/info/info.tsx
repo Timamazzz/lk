@@ -6,6 +6,9 @@ import {getPatent} from "../../../api/getPatent/getPatent";
 import {getQRCode} from '../../../api/getQr/getQr';
 import {QRCodeCanvas} from 'qrcode.react';
 import {colors} from "../../../constants/colors";
+import atteintionInfo from '../../../assets/images/Info/atteintionInfo.png'
+import badInfo from '../../../assets/images/Info/badIinfo.png'
+import goodInfo from '../../../assets/images/Info/goodInfo.png'
 
 function Info() {
 
@@ -61,6 +64,20 @@ useEffect(()=>{
     }
 },[screens])
 
+
+const [width, setWidth] = useState<number>(window.innerWidth);
+
+function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+}
+useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+        window.removeEventListener('resize', handleWindowSizeChange);
+    }
+}, []);
+
+const isMobile = width <= 768;
     // Проверьте, что patentInfo существует и имеет данные
     if (!patentInfo) {
     return <div>Loading...</div>;
@@ -202,9 +219,10 @@ useEffect(()=>{
     }
   };
 
+
     return (
         <>
-         <text style={styles.title}>
+         <text style={{...styles.title, marginTop: isMobile? '40px' : '', textAlign: 'center'}}>
                 {screens === 1?
                     "Данные по патенту"
                     : 
@@ -214,38 +232,51 @@ useEffect(()=>{
                         'QR код для оплаты патента'
                 }
             </text>
-        <div>
+        <div style={{width: isMobile? "90%" : '100%', margin: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: '1138px', marginBottom: isMobile? '50px' : '0'}}>
            
             {screens !== 3?
-                <div style={styles.container}>
+                <div style={{...styles.container, width: isMobile? '100%' : '100%', padding: isMobile? '26px' : '5vh'}}>
                 <div style={styles.headerContainerInfo}>
-                    <p style={styles.text1}>патент №</p>
-                    <p style={styles.text2}>{patentInfo[0]?.number != undefined && patentInfo[0]?.number}</p>
+                    <p style={{...styles.text1, fontSize: isMobile? "18px" : '20px'}}>патент №</p>
+                    <p style={{...styles.text2, fontSize: isMobile? "28px" : '40px'}}>{patentInfo[0]?.number != undefined && patentInfo[0]?.number}</p>
                 </div>
-                <div style={styles.main}>
-                    <div style={styles.columnName}>
-                        <p style={styles.text2}>{patentInfo[0]?.name != undefined? patentInfo[0].name : 'Имени нет в ответе!'}</p>
+                <div style={{...styles.main, flexDirection: isMobile? 'column': 'row'}}>
+                    <div style={{...styles.columnName, width: isMobile? '100%' : ''}}>
+                        
+                        <p style={{...styles.text2, fontSize: isMobile? "26px" : '42px'}}>{patentInfo[0]?.name != undefined? patentInfo[0].firstName : 'Имени нет в ответе!'}</p>
+                        <div>
+                            <p style={{...styles.text2, fontSize: isMobile? "26px" : '42px'}}>{patentInfo[0]?.name != undefined? patentInfo[0].patronymic : 'Имени нет в ответе!'}</p>
+                            <p style={{...styles.text2, fontSize: isMobile? "26px" : '42px'}}>{patentInfo[0]?.name != undefined? patentInfo[0].lastName[0] + '.' : 'Имени нет в ответе!'}</p>
+                        </div>
+                       
                     </div>
-                    <div style={styles.column}>
+                    <div style={{...styles.column, width: isMobile? '100%' : '', justifyContent: isMobile? 'space-between' : '', flexDirection: isMobile? 'row-reverse' : 'column'}}>
+                        <div style={{ ...styles.radius, backgroundColor: remainingDays ? "red" : "transparent" }}>
+                            <p style={styles.radiusText}>{Math.abs(remainingDays)}</p>
+                        </div>
+                        <p style={styles.radiusSubtext}>оплачено дней</p>
+                    </div>
+
+                    <div style={{...styles.column, width: isMobile? '100%' : ''}}>
                         <div style={styles.main}>
-                            <p style={styles.text1}>Выдан: </p>
+                            <p style={{...styles.text1, fontSize: isMobile? '16px': '20px'}}>Выдан: </p>
                             <p style={styles.text3}>{patentInfo[0]?.issued != undefined && patentInfo[0].issued}</p>
                         </div>
                         <div style={styles.main}>
-                            <p style={styles.text1}>Дата выдачи: </p>
+                            <p style={{...styles.text1, fontSize: isMobile? '16px': '20px'}}>Дата выдачи: </p>
                             <p style={styles.text3}>{patentInfo[0]?.dateOfIssue != undefined && patentInfo[0].dateOfIssue}</p>
                         </div>
                         <div style={styles.main}>
-                            <p style={styles.text1}>Срок действия до: </p>
+                            <p style={{...styles.text1, fontSize: isMobile? '16px': '20px'}}>Срок действия до: </p>
                             <p style={styles.text3}>{patentInfo[0]?.expirationDate != undefined && patentInfo[0].expirationDate}</p>
                         </div>
                         <div style={styles.main}>
-                            <p style={styles.text1}>Стоимость патента: </p>
+                            <p style={{...styles.text1, fontSize: isMobile? '16px': '20px'}}>Стоимость патента: </p>
                             <p style={styles.text3}>{patentInfo[0]?.price != undefined && patentInfo[0].price / 100}р</p>
                         </div>
                         {remainingDays < 0?
                             <div style={styles.main}>
-                                <p style={{...styles.text1, color: "red"}}>Задолжность дней: </p>
+                                <p style={{...styles.text1,color: 'red', fontSize: isMobile? '16px': '20px'}}>Задолжность дней: </p>
                                 <p style={{...styles.text3, color: "red"}}>{Math.abs(remainingDays)}</p>
                             </div>
                             :
@@ -270,10 +301,10 @@ useEffect(()=>{
                     </>
                     :
                     <>
-                        <div style={styles.containerSchet}>
+                        <div style={{...styles.containerSchet, flexDirection: isMobile? 'column' : 'row', alignItems: isMobile? '' : 'center'}}>
                             <div>
-                                <div style={styles.containerButt}>
-                                    <p style={styles.textButt}>Количество месяцев</p>
+                                <div style={{...styles.containerButt, marginLeft: isMobile? '0' : '45px'}}>
+                                    <p style={{...styles.textButt, fontSize: isMobile? '16px': '20px'}}>Количество месяцев</p>
                                     <div style={styles.containerBlue}>
                                         <div onClick={()=>{handleMounthClickMinus()}} style={styles.buttonClick}>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="11" height="3" viewBox="0 0 11 3" fill="none">
@@ -302,8 +333,8 @@ useEffect(()=>{
                                 </div>
                             </div>
                             <div>
-                                <div style={styles.containerButt}>
-                                    <p style={styles.textButt}>Включить задолженность</p>
+                                <div style={{...styles.containerButt, marginLeft: isMobile? '0' : '45px'}}>
+                                    <p  style={{...styles.textButt, fontSize: isMobile? '16px': '20px'}}>Включить задолженность</p>
                                     <div>
                                     <div onClick={handleDebtToggle} style={!isDebtEnabled? styles.buttonSwitchGrey : styles.buttonSwitch}>
                                         {!isDebtEnabled?
@@ -337,7 +368,7 @@ useEffect(()=>{
                             </div>
                         
                         </div>
-                       <p style={styles.textButt}>Сумма к оплате {sum}</p>
+                       <p  style={{...styles.textButt, fontSize: isMobile? '16px': '20px'}}>Сумма к оплате <span style={styles.sumText}>{sum}р</span></p>
                     </>
                 }
                 {screens === 1?
@@ -348,11 +379,11 @@ useEffect(()=>{
                 }
             </div>
             :
-            <div style={styles.containerQRMain}>
-                <div style={styles.flexCol}>
-                <div style={{display: 'flex'}}>
-                    <div style={styles.containerQR}>
-                        <QRCodeCanvas  id="qrcode-canvas" value={qr} size={391} style={{ marginBottom: 31 }} />
+            <div style={{...styles.containerQRMain, width: isMobile? '100%' : '100%', padding: isMobile? '7px 7px' : '33px 58px', flexDirection: isMobile? 'column' : 'row'}}>
+                <div style={{...styles.flexCol, width: isMobile? '90%' : '100%',}}>
+                <div style={{display: 'flex', flexDirection: isMobile? 'column' : 'row', alignItems: isMobile? 'center' : '', width: "100%", justifyContent: 'space-around'}}>
+                    <div style={{...styles.containerQR, marginRight: isMobile? '0' : '27px'}}>
+                        <QRCodeCanvas  id="qrcode-canvas" value={qr} size={isMobile? 250 : 391} style={{ marginBottom: 31 }} />
                         <BlueButton text={'РЕДАКТИРОВАТЬ'} onClick={handleButtonClick} />
                     </div>
                     <div style={styles.infoQr}>
@@ -364,19 +395,19 @@ useEffect(()=>{
                                     <p style={styles.text2Qr}>{patentInfo[0]?.number != undefined && patentInfo[0]?.number}</p>
                                 </div>
                                 <div style={styles.mainQrItem}>
-                                    <p style={styles.text1}>Выдан: </p>
+                                    <p style={{...styles.text1, fontSize: isMobile? '16px': '20px'}}>Выдан: </p>
                                     <p style={styles.text3}>{patentInfo[0]?.issued != undefined && patentInfo[0].issued}</p>
                                 </div>
                                 <div style={styles.mainQrItem}>
-                                    <p style={styles.text1}>Дата выдачи: </p>
+                                    <p style={{...styles.text1, fontSize: isMobile? '16px': '20px'}}>Дата выдачи: </p>
                                     <p style={styles.text3}>{patentInfo[0]?.dateOfIssue != undefined && patentInfo[0].dateOfIssue}</p>
                                 </div>
                                 <div style={styles.mainQrItem}>
-                                    <p style={styles.text1}>Срок действия до: </p>
+                                    <p style={{...styles.text1, fontSize: isMobile? '16px': '20px'}}>Срок действия до: </p>
                                     <p style={styles.text3}>{patentInfo[0]?.expirationDate != undefined && patentInfo[0].expirationDate}</p>
                                 </div>
                                 <div style={styles.mainQrItem}>
-                                    <p style={styles.text1}>Сумма оплаты: </p>
+                                    <p style={{...styles.text1, fontSize: isMobile? '16px': '20px'}}>Сумма оплаты: </p>
                                     <p style={styles.text3Sum}>{sum}р</p>
                                 </div>
                             </div>
@@ -391,27 +422,31 @@ useEffect(()=>{
             </div>
             
                 }
-                {/*<div style={styles.newsContainer}>
+               
+        </div>
+        <div style={{...styles.newsContainer, width: isMobile? '90%' : '100%'}}>
                     {patentInfo[0]?.number != undefined && 
                         patentInfo[0]?.messages.map((item:any)=>{
                             return (
-                                <div>
-                                    <img src={item.type === 'attemption' ?
-                                        atteintionInfo
-                                        : item.type === 'bad'?
-                                            badInfo
-                                            :
+                                <div style={{marginTop: 14, backgroundColor: colors.white, padding: isMobile? '17px 30px' : '17px 61px'}}>
+                                    <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',  marginBottom: 12,}}>
+                                        <img src={item.type === 1 ?
                                             goodInfo
-                                    }></img>
-                                    поправь тут
-                                    <h1>{item.title}</h1>
-                                    <h1>{item.message}</h1>
+                                            : item.type === 3?
+                                                badInfo
+                                                :
+                                                atteintionInfo
+                                        }
+                                            style={{width: 31}}
+                                        ></img>
+                                        <h1 style={{...styles.text3, textAlign: 'center', fontSize: 14, alignSelf: 'center', width: "100%"}}>{item.title}</h1>
+                                    </div>
+                                    <h1 style={{...styles.text1, fontSize: isMobile? '12px': '12px'}}>{item.text}</h1>
                                 </div>
                             )
                         })
                     }
-                </div>*/}
-        </div>
+                </div>
         </>
     );
 }

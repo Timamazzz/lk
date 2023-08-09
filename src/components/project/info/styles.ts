@@ -10,7 +10,9 @@ const styles: { [key: string]: CSSProperties } = {
         alignItems: 'center',
         padding: '5vh',
         paddingRight: '5vw',
-        paddingLeft: '5vw'
+        paddingLeft: '5vw',
+        maxWidth: 1138,
+        width: "100%"
     },
 
     headerContainerInfo: {
@@ -22,7 +24,7 @@ const styles: { [key: string]: CSSProperties } = {
     title: {
         color: colors.white,
         fontSize: 40,
-        marginTop: '6vh',
+        marginTop: 172,
         marginBottom: '6vh'
     },
     text1: {
@@ -37,8 +39,8 @@ const styles: { [key: string]: CSSProperties } = {
         fontSize: 42,
         fontFamily: "Exo 2",
         fontStyle: "normal",
-        fontWeight: 600,
-        lineHeight: 3,
+        fontWeight: "600",
+        lineHeight: "60px",
         margin: 0,
     },
 
@@ -59,6 +61,21 @@ const styles: { [key: string]: CSSProperties } = {
         marginBottom: 30
     },
 
+    radiusText: {
+        color: "#fff",
+        fontFamily: 'Exo 2',
+        fontSize: 28,
+        fontWeight: '600'
+    },
+
+    radiusSubtext: {
+        color: "#5E5E5E",
+        fontFamily: 'Exo 2',
+        fontSize: 18,
+        fontWeight: "600",
+    },
+
+
     main: {
         display: "flex",
         width: '100%',
@@ -70,10 +87,22 @@ const styles: { [key: string]: CSSProperties } = {
     column: {
         display: "flex",
         flexDirection: "column",
+        alignItems: 'center',
+        width: "33%"
     },
 
     columnName: {
-        marginRight: 124
+        width: "33%"
+    },
+
+    radius: {
+        backgroundColor: colors.green,
+        width: 84,
+        height: 84,
+        justifyContent: 'center',
+        alignItems: 'center',
+        display: 'flex',
+        borderRadius: 100
     },
 
     progress: {
@@ -95,7 +124,7 @@ const styles: { [key: string]: CSSProperties } = {
 
     containerSchet: {
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
         alignItems: 'center',
         width: "100%"
     },
@@ -103,7 +132,8 @@ const styles: { [key: string]: CSSProperties } = {
     containerButt: {
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginLeft: 45
     },
 
     textButt: {
@@ -112,6 +142,17 @@ const styles: { [key: string]: CSSProperties } = {
         fontSize: 20,
         fontStyle: "normal",
         fontWeight: 400,
+        display: 'flex',
+        alignSelf: 'flex-end',
+        alignItems: 'center'
+    },
+
+    sumText: {
+        color: "#2EB1E5",
+        fontFamily: "Exo 2",
+        fontSize: 32,
+        fontWeight: "600",
+        marginLeft: 23
     },
 
     buttonClick: {
@@ -191,7 +232,8 @@ const styles: { [key: string]: CSSProperties } = {
 
     flexCol: {
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        width: "100%"
     },
 
     footerButton: {
@@ -221,12 +263,13 @@ const styles: { [key: string]: CSSProperties } = {
         fontSize: 42,
         fontFamily: "Exo 2",
         fontStyle: "normal",
-        fontWeight: 600,
+        fontWeight: "600",
         marginBottom: 57
     },
 
     newsContainer: {
-        backgroundColor: colors.white,
+        width: "100%",
+        maxWidth: 1138,
     },
 
     buttonSpace: {

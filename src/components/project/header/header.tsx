@@ -5,6 +5,7 @@ import styles from './styles';
 import { usePersonId } from '../../../api/getPersonId/getPersonId';
 import AuthModal from "../AuthModal/AuthModal";
 import LogoutModal from "../LogoutModal/LogoutModal";
+import './style.css';
 
 interface HeaderProps {
     isAuthorized: boolean;
@@ -15,7 +16,19 @@ function Header({ isAuthorized, setIsAuthorized }: HeaderProps) {
     const [isLoginModalOpen, setLoginModalOpen] = useState<boolean>(false);
     const [isLogoutModalOpen, setLogoutModalOpen] = useState<boolean>(false);
     const { personId, getPersonId } = usePersonId();
+    const [width, setWidth] = useState<number>(window.innerWidth);
 
+    function handleWindowSizeChange() {
+        setWidth(window.innerWidth);
+    }
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSizeChange);
+        return () => {
+            window.removeEventListener('resize', handleWindowSizeChange);
+        }
+    }, []);
+    
+    const isMobile = width <= 768;
     useEffect(() => {
         const savedPersonId = localStorage.getItem('personId');
         if (savedPersonId) {
@@ -66,7 +79,7 @@ function Header({ isAuthorized, setIsAuthorized }: HeaderProps) {
     };
 
     return (
-        <header style={styles.header}>
+        <header style={{...styles.header, display: isMobile? 'none' : ''}}>
             <div style={styles.headerContainer}>
                 <div style={styles.itemContainer}>
                     <img style={styles.logo} src={logo} alt="Логотип" />

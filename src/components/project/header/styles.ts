@@ -1,5 +1,6 @@
 import { CSSProperties } from 'react';
 import { colors } from "../../../constants/colors";
+import { media } from '../../../constants/media';
 
 const styles: { [key: string]: CSSProperties } = {
     header: {
@@ -8,6 +9,7 @@ const styles: { [key: string]: CSSProperties } = {
         top: 0,
         left: 0,
         width: "100%",
+
     },
 
     headerContainer: {
@@ -36,7 +38,7 @@ const styles: { [key: string]: CSSProperties } = {
     headerTitle: {
         color: colors.blue,
         fontSize: 32,
-        fontFamily: 'Alumni Sans',
+        fontFamily: "Exo 2",
         textTransform: 'uppercase',
         marginLeft: 10,
     },
@@ -65,6 +67,9 @@ const styles: { [key: string]: CSSProperties } = {
         alignItems: "center",
         justifyContent: "center",
     },
+
 };
+
+
 
 export default styles;
