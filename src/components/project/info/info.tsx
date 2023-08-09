@@ -243,16 +243,16 @@ const isMobile = width <= 768;
                 <div style={{...styles.main, flexDirection: isMobile? 'column': 'row'}}>
                     <div style={{...styles.columnName, width: isMobile? '100%' : ''}}>
                         
-                        <p style={{...styles.text2, fontSize: isMobile? "26px" : '42px'}}>{patentInfo[0]?.name != undefined? patentInfo[0].firstName : 'Имени нет в ответе!'}</p>
+                        <p style={{...styles.text2, fontSize: isMobile? "26px" : '42px'}}>{patentInfo[0]?.name != undefined? patentInfo[0]?.firstName : 'Имени нет в ответе!'}</p>
                         <div>
-                            <p style={{...styles.text2, fontSize: isMobile? "26px" : '42px'}}>{patentInfo[0]?.name != undefined? patentInfo[0].patronymic : 'Имени нет в ответе!'}</p>
-                            <p style={{...styles.text2, fontSize: isMobile? "26px" : '42px'}}>{patentInfo[0]?.name != undefined? patentInfo[0].lastName[0] + '.' : 'Имени нет в ответе!'}</p>
+                            <p style={{...styles.text2, fontSize: isMobile? "26px" : '42px'}}>{patentInfo[0]?.name != undefined? patentInfo[0]?.patronymic : 'Имени нет в ответе!'}</p>
+                            <p style={{...styles.text2, fontSize: isMobile? "26px" : '42px'}}>{patentInfo[0]?.name != undefined? patentInfo[0]?.lastName[0] + '.' : 'Имени нет в ответе!'}</p>
                         </div>
                        
                     </div>
                     <div style={{...styles.column, width: isMobile? '100%' : '', justifyContent: isMobile? 'space-between' : '', flexDirection: isMobile? 'row-reverse' : 'column'}}>
                         <div style={{ ...styles.radius, backgroundColor: remainingDays ? "red" : "transparent" }}>
-                            <p style={styles.radiusText}>{Math.abs(remainingDays)}</p>
+                            <p style={styles.radiusText}>{remainingDays}</p>
                         </div>
                         <p style={styles.radiusSubtext}>оплачено дней</p>
                     </div>

@@ -79,8 +79,8 @@ function Header({ isAuthorized, setIsAuthorized }: HeaderProps) {
     };
 
     return (
-        <header style={{...styles.header, display: isMobile? 'none' : ''}}>
-            <div style={styles.headerContainer}>
+        <header style={{...styles.header}}>
+            <div style={{...styles.headerContainer, display: isMobile? 'none' : 'flex'}}>
                 <div style={styles.itemContainer}>
                     <img style={styles.logo} src={logo} alt="Логотип" />
                     <span style={styles.headerTitle}>Личный кабинет мигранта</span>
