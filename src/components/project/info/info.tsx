@@ -47,6 +47,8 @@ const [sum, setSum] = useState<any>(0)
 
 useEffect(()=>{
     if(patentInfo){
+        console.log(patentInfo)
+        console.log(debtPrice)
         setSum(mounth * price + debtPrice / 100)
     }
 },[mounth, debtPrice, patentInfo])
@@ -56,8 +58,7 @@ const [qr, setQr] = useState('')
 useEffect(()=>{
     if(screens === 3){
         if (patentInfo) {
-            getQRCode(patentInfo[0]?.patentId, sum * 100 + debtPrice / 100).then((resp:any)=>{
-            
+            getQRCode(patentInfo[0]?.patentId, sum * 100 + debtPrice).then((resp:any)=>{
                 setQr(resp.payInfo)
             })
         }
@@ -167,7 +168,7 @@ const isMobile = width <= 768;
         return Math.ceil(timeDiff / oneDayMilliseconds);
     }
   
-    const endDate = new Date(patentInfo[0].dateOfIssue);
+    const endDate = new Date(patentInfo[0].payed_to_date);
 
     const remainingDays = daysRemainingBetweenDates(endDate);
     const progressPercentage = (remainingDays / 365) * 100;
@@ -251,7 +252,7 @@ const isMobile = width <= 768;
                        
                     </div>
                     <div style={{...styles.column, width: isMobile? '100%' : '', justifyContent: isMobile? 'space-between' : '', flexDirection: isMobile? 'row-reverse' : 'column'}}>
-                        <div style={{ ...styles.radius, backgroundColor: remainingDays ? "red" : "transparent" }}>
+                        <div style={{ ...styles.radius, backgroundColor: getTextColorProgress(remainingDays)}}>
                             <p style={styles.radiusText}>{remainingDays}</p>
                         </div>
                         <p style={styles.radiusSubtext}>оплачено дней</p>
