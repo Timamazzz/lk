@@ -1,0 +1,8 @@
+@media (max-width: 600) {
+    .header{
+        display: none;
+    }
+    .container{
+        width: 20px;
+    }
+}
