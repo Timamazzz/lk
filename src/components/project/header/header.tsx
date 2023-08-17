@@ -10,15 +10,15 @@ import './style.css';
 interface HeaderProps {
     isAuthorized: boolean;
     setIsAuthorized: (isAuthorized: boolean) => void;
+    isMobile: boolean;
 }
 
-function Header({ isAuthorized, setIsAuthorized }: HeaderProps) {
+function Header({ isAuthorized, setIsAuthorized, isMobile }: HeaderProps) {
     const [isLoginModalOpen, setLoginModalOpen] = useState<boolean>(false);
     const [isLogoutModalOpen, setLogoutModalOpen] = useState<boolean>(false);
     const { personId, getPersonId } = usePersonId();
     const [width, setWidth] = useState<number>(window.innerWidth);
-
-    function handleWindowSizeChange() {
+/*    function handleWindowSizeChange() {
         setWidth(window.innerWidth);
     }
     useEffect(() => {
@@ -28,7 +28,8 @@ function Header({ isAuthorized, setIsAuthorized }: HeaderProps) {
         }
     }, []);
     
-    const isMobile = width <= 768;
+    const isMobile = width <= 768;*/
+
     useEffect(() => {
         const savedPersonId = localStorage.getItem('personId');
         if (savedPersonId) {
@@ -36,7 +37,7 @@ function Header({ isAuthorized, setIsAuthorized }: HeaderProps) {
         }
         else
         {
-            setLoginModalOpen(true);
+            setLoginModalOpen(false);
         }
     }, [setIsAuthorized]);
 
@@ -74,6 +75,7 @@ function Header({ isAuthorized, setIsAuthorized }: HeaderProps) {
         localStorage.removeItem('personId');
         localStorage.removeItem('name');
         localStorage.removeItem('patent');
+        setIsAuthorized(false);
         setIsAuthorized(false);
         closeLogoutModal();
     };

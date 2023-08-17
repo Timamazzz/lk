@@ -6,6 +6,18 @@ import Home from './screens/Home/Home';
 
 function App() {
     const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+    const [width, setWidth] = useState<number>(window.innerWidth);
+    const isMobile = width <= 768;
+
+    function handleWindowSizeChange() {
+        setWidth(window.innerWidth);
+    }
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSizeChange);
+        return () => {
+            window.removeEventListener('resize', handleWindowSizeChange);
+        }
+    }, []);
 
     useEffect(() => {
         const savedPersonId = localStorage.getItem('personId');
@@ -16,8 +28,10 @@ function App() {
 
     return (
         <div style={styles.App}>
-            <Header isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized} />
-            {isAuthorized ? <Home /> : <Main />}
+            <Header isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized} isMobile={isMobile} />
+            {isAuthorized ?
+                <Home isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized} isMobile={isMobile} />
+                : <Main isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized} isMobile={isMobile} />}
         </div>
     );
 }
