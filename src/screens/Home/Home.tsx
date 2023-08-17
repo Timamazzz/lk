@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from "./styles";
 import Info from "../../components/project/info/info";
+import BlueButton from '../../components/ui/button/BlueButton';
 
 interface HomeProps {
     isAuthorized: boolean;
@@ -18,13 +19,16 @@ function Home({ isAuthorized, setIsAuthorized, isMobile }: HomeProps) {
         setIsAuthorized(false);
     };
 
+    
+
     return (
-        <div style={styles.container}>
+        <div style={{...styles.container, marginTop: isMobile? 0 : 122}}>
             <Info/>
             {isMobile &&
-                <button onClick={() => handleLogout()} style={styles.modalButton}>
-                    Выход
-                </button>
+              
+                  <div style={{marginTop: 20}}>
+                    <BlueButton text={'Выход'} onClick={handleLogout} />
+                  </div>
             }
         </div>
     );

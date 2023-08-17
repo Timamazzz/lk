@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styles from "./styles";
 import {logo} from "../../constants/images";
 import { usePersonId } from '../../api/getPersonId/getPersonId';
+import BlueButton from '../../components/ui/button/BlueButton';
 
 interface MainProps {
     isAuthorized: boolean;
@@ -45,9 +46,9 @@ function Main({ isAuthorized, setIsAuthorized, isMobile }: MainProps) {
     };
 
     return (
-        <div style={{display: 'flex', alignItems: "center", justifyContent:'center'}}>
+        <div style={{height: "100%"}}>
             {isMobile &&
-                <div>
+                <div style={{display: 'flex', alignItems: "center", justifyContent:'center', flexDirection: 'column', height: "100%"}}>
                     <img style={styles.logo} src={logo} alt="Логотип" />
 
                     <label style={styles.label}>Дата рождения</label>
@@ -66,10 +67,7 @@ function Main({ isAuthorized, setIsAuthorized, isMobile }: MainProps) {
                         onChange={handleDateOfBirthChange}
                         style={styles.inputField}
                     />
-
-                    <button onClick={() => handleLogin(inn, dateOfBirth)} style={styles.modalButton}>
-                        Проверить
-                    </button>
+                    <BlueButton text={'Проверить'} onClick={()=>handleLogin(inn, dateOfBirth)} />
                 </div>
             }
         </div>
