@@ -223,7 +223,7 @@ const isMobile = width <= 768;
 
     return (
         <>
-         <text style={{...styles.title, marginTop: isMobile? '40px' : '', textAlign: 'center'}}>
+         <text style={{...styles.title, marginTop: isMobile? '40px' : '', textAlign: 'center', marginBottom: isMobile? 0 : ''}}>
                 {screens === 1?
                     "Данные по патенту"
                     : 
@@ -233,7 +233,28 @@ const isMobile = width <= 768;
                         'QR код для оплаты патента'
                 }
             </text>
-        <div style={{width: isMobile? "90%" : '100%', margin: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: '1138px', marginBottom: isMobile? '50px' : '0'}}>
+            <div style={{...styles.newsContainer, width: isMobile? '90%' : '100%', marginBottom: 15}}>
+                    {patentInfo[0]?.number != undefined && 
+                        
+                                <div style={{marginTop: 14, backgroundColor: colors.white, padding: isMobile? '17px 30px' : '17px 61px'}}>
+                                    <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',  marginBottom: 12,}}>
+                                        <img src={patentInfo[0]?.messages[0].type === 1 ?
+                                            goodInfo
+                                            : patentInfo[0]?.messages[0].type === 3?
+                                                badInfo
+                                                :
+                                                atteintionInfo
+                                        }
+                                            style={{width: 31}}
+                                        ></img>
+                                        <h1 style={{...styles.text3, textAlign: 'center', fontSize: 14, alignSelf: 'center', width: "100%"}}>{patentInfo[0]?.messages[0].title}</h1>
+                                    </div>
+                                    <h1 style={{...styles.text1, fontSize: isMobile? '12px': '12px'}}>{patentInfo[0]?.messages[0].text}</h1>
+                                </div>
+                            
+                    }
+                </div>
+        <div style={{width: isMobile? "90%" : '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: '1138px',}}>
            
             {screens !== 3?
                 <div style={{...styles.container, width: isMobile? '100%' : '100%', padding: isMobile? '26px' : '5vh'}}>
@@ -375,7 +396,12 @@ const isMobile = width <= 768;
                 {screens === 1?
                     <BlueButton text={'перейти к оплате'} onClick={handleButtonClick} />
                     : 
-                    <BlueButton text={'оплатить'} onClick={handleButtonClickTwo} />
+                    <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+                        <BlueButton text={'оплатить'} onClick={handleButtonClickTwo} />
+                        <div style={{marginTop: 10, display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+                            <BlueButton text={'Назад'} onClick={()=>setScreens(1)} />
+                        </div>
+                    </div>
                     
                 }
             </div>
@@ -427,7 +453,7 @@ const isMobile = width <= 768;
         </div>
         <div style={{...styles.newsContainer, width: isMobile? '90%' : '100%'}}>
                     {patentInfo[0]?.number != undefined && 
-                        patentInfo[0]?.messages.map((item:any)=>{
+                        patentInfo[0]?.messages.slice(1).map((item:any)=>{
                             return (
                                 <div style={{marginTop: 14, backgroundColor: colors.white, padding: isMobile? '17px 30px' : '17px 61px'}}>
                                     <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',  marginBottom: 12,}}>

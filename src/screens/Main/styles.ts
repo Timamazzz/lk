@@ -10,14 +10,22 @@ const styles: { [key: string]: CSSProperties } = {
     label: {
         fontSize: "16px",
         fontWeight: "bold",
-        alignSelf: "flex-start", // Выравнивание по левому краю
+        alignSelf: "center", // Выравнивание по левому краю
+        marginTop: 20,
+        marginBottom: 30
     },
     inputField: {
         // Стили для поля ввода
-        width: "100%", // Занимает всю доступную ширину
+        width: '85%', // Занимает всю доступную ширину
         padding: "8px 12px", // Отступы внутри поля, чтобы создать визуальное отделение от границ
         borderRadius: "4px",
-        border: "1px solid #ccc", // Простая рамка для визуального отделения поля
+        borderTop: 0,
+        borderLeft: 0,
+        borderRight: 0,
+        borderBottom: "1px solid #007bff",
+        backgroundColor: "inherit",
+        borderColor: colors.blue,
+        marginBottom: 20
     },
     modalButton: {
         // Стили для кнопки "Вход"

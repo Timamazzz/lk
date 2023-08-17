@@ -12,7 +12,7 @@ const styles: { [key: string]: CSSProperties } = {
         display: 'flex',
         flexDirection: "column",
         alignItems: "center",
-        marginTop: 72,
+        marginTop: 122,
     }
 };
 
