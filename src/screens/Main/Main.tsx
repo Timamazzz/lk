@@ -51,7 +51,7 @@ function Main({ isAuthorized, setIsAuthorized, isMobile }: MainProps) {
                 <div style={{display: 'flex', alignItems: "center", justifyContent:'center', flexDirection: 'column', height: "100%"}}>
                     <img style={styles.logo} src={logo} alt="Логотип" />
 
-                    <label style={styles.label}>Дата рождения</label>
+                    <label style={styles.label}>Личный кабинет мигранта</label>
 
                     <input
                         type="text"

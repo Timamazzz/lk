@@ -37,7 +37,7 @@ function Header({ isAuthorized, setIsAuthorized, isMobile }: HeaderProps) {
         }
         else
         {
-            setLoginModalOpen(false);
+            !isMobile? setLoginModalOpen(true) : setLoginModalOpen(false);
         }
     }, [setIsAuthorized]);
 

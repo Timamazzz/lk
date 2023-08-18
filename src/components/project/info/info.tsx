@@ -220,7 +220,6 @@ const isMobile = width <= 768;
     }
   };
 
-
     return (
         <>
          <text style={{...styles.title, marginTop: isMobile? '40px' : '', textAlign: 'center', marginBottom: isMobile? 0 : ''}}>
@@ -233,27 +232,29 @@ const isMobile = width <= 768;
                         'QR код для оплаты патента'
                 }
             </text>
-            <div style={{...styles.newsContainer, width: isMobile? '90%' : '100%', marginBottom: 15}}>
+            {patentInfo[0]?.messages.length > 0 &&
+                <div style={{...styles.newsContainer, width: isMobile? '90%' : '100%', marginBottom: 15}}>
                     {patentInfo[0]?.number != undefined && 
                         
                                 <div style={{marginTop: 14, backgroundColor: colors.white, padding: isMobile? '17px 30px' : '17px 61px'}}>
                                     <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',  marginBottom: 12,}}>
-                                        <img src={patentInfo[0]?.messages[0].type === 1 ?
+                                        <img src={patentInfo[0]?.messages[0]?.type === 1 ?
                                             goodInfo
-                                            : patentInfo[0]?.messages[0].type === 3?
+                                            : patentInfo[0]?.messages[0]?.type === 3?
                                                 badInfo
                                                 :
                                                 atteintionInfo
                                         }
                                             style={{width: 31}}
                                         ></img>
-                                        <h1 style={{...styles.text3, textAlign: 'center', fontSize: 14, alignSelf: 'center', width: "100%"}}>{patentInfo[0]?.messages[0].title}</h1>
+                                        <h1 style={{...styles.text3, textAlign: 'center', fontSize: 14, alignSelf: 'center', width: "100%"}}>{patentInfo[0]?.messages[0]?.title}</h1>
                                     </div>
-                                    <h1 style={{...styles.text1, fontSize: isMobile? '12px': '12px'}}>{patentInfo[0]?.messages[0].text}</h1>
+                                    <h1 style={{...styles.text1, fontSize: isMobile? '12px': '12px'}}>{patentInfo[0]?.messages[0]?.text}</h1>
                                 </div>
                             
                     }
                 </div>
+            }
         <div style={{width: isMobile? "90%" : '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', maxWidth: '1138px',}}>
            
             {screens !== 3?

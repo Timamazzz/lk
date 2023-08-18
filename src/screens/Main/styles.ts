@@ -8,11 +8,14 @@ const styles: { [key: string]: CSSProperties } = {
         marginTop: '16vh',
     },
     label: {
-        fontSize: "16px",
-        fontWeight: "bold",
-        alignSelf: "center", // Выравнивание по левому краю
-        marginTop: 20,
-        marginBottom: 30
+        color: "#FFF",
+        textAlign: "center",
+        fontSize: "32px",
+        fontStyle: "normal",
+        fontWeight: "500",
+        lineHeight: "normal",
+        letterSpacing: "0.96px",
+        textTransform: "uppercase",
     },
     inputField: {
         // Стили для поля ввода
@@ -35,6 +38,10 @@ const styles: { [key: string]: CSSProperties } = {
         borderRadius: "4px",
         border: "none", // Удаляем рамку, чтобы кнопка выглядела плоской
         cursor: "pointer",
+    },
+        logo: {
+        width: 120,
+        height: 156,
     },
 };
 
