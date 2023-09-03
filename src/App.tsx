@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styles from './styles';
-import Header from './components/project/header/header';
-import Main from './screens/Main/Main';
-import Home from './screens/Home/Home';
+import { Helmet } from "react-helmet";
+import AppRouter from "./navigation/AppRouter";
+import Header from "./components/project/header/header";
 
 function App() {
-    const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
     const [width, setWidth] = useState<number>(window.innerWidth);
+    const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
     const isMobile = width <= 768;
 
     function handleWindowSizeChange() {
@@ -18,7 +18,9 @@ function App() {
             window.removeEventListener('resize', handleWindowSizeChange);
         }
     }, []);
-
+    useEffect(() => {
+        localStorage.setItem('isMobile', isMobile.toString());
+    }, [isMobile]);
     useEffect(() => {
         const savedPersonId = localStorage.getItem('personId');
         if (savedPersonId) {
@@ -26,12 +28,15 @@ function App() {
         }
     }, []);
 
+
+
     return (
         <div style={styles.App}>
-            <Header isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized} isMobile={isMobile} />
-            {isAuthorized ?
-                <Home isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized} isMobile={isMobile} />
-                : <Main isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized} isMobile={isMobile} />}
+            <Helmet>
+                <title>Патенты Московской области</title>
+            </Helmet>
+            {isAuthorized && <Header isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized} isMobile={isMobile} /> }
+            <AppRouter isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized} isMobile={isMobile} />
         </div>
     );
 }

@@ -1,10 +1,7 @@
 // components/project/header/header.tsx
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { logo, profile } from '../../../constants/images';
 import styles from './styles';
-import { usePersonId } from '../../../api/getPersonId/getPersonId';
-import AuthModal from "../AuthModal/AuthModal";
-import LogoutModal from "../LogoutModal/LogoutModal";
 import './style.css';
 
 interface HeaderProps {
@@ -14,72 +11,6 @@ interface HeaderProps {
 }
 
 function Header({ isAuthorized, setIsAuthorized, isMobile }: HeaderProps) {
-    const [isLoginModalOpen, setLoginModalOpen] = useState<boolean>(false);
-    const [isLogoutModalOpen, setLogoutModalOpen] = useState<boolean>(false);
-    const { personId, getPersonId } = usePersonId();
-    const [width, setWidth] = useState<number>(window.innerWidth);
-/*    function handleWindowSizeChange() {
-        setWidth(window.innerWidth);
-    }
-    useEffect(() => {
-        window.addEventListener('resize', handleWindowSizeChange);
-        return () => {
-            window.removeEventListener('resize', handleWindowSizeChange);
-        }
-    }, []);
-    
-    const isMobile = width <= 768;*/
-
-    useEffect(() => {
-        const savedPersonId = localStorage.getItem('personId');
-        if (savedPersonId) {
-            setIsAuthorized(true);
-        }
-        else
-        {
-            !isMobile? setLoginModalOpen(true) : setLoginModalOpen(false);
-        }
-    }, [setIsAuthorized]);
-
-    const openLoginModal = () => {
-        setLoginModalOpen(true);
-    };
-
-    const closeLoginModal = () => {
-        setLoginModalOpen(false);
-    };
-
-    const openLogoutModal = () => {
-        setLogoutModalOpen(true);
-    };
-
-    const closeLogoutModal = () => {
-        setLogoutModalOpen(false);
-    };
-
-    const handleLogin = async (inn: string, dateOfBirth: string) => {
-        try {
-            await getPersonId(inn, dateOfBirth);
-            if (localStorage.getItem('personId') != null) {
-                setIsAuthorized(true);
-                closeLoginModal();
-            } else {
-                console.error('Ошибка получения personId');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
-
-    const handleLogout = () => {
-        localStorage.removeItem('personId');
-        localStorage.removeItem('name');
-        localStorage.removeItem('patent');
-        setIsAuthorized(false);
-        setIsAuthorized(false);
-        closeLogoutModal();
-    };
-
     return (
         <header style={{...styles.header}}>
             <div style={{...styles.headerContainer, display: isMobile? 'none' : 'flex'}}>
@@ -89,7 +20,7 @@ function Header({ isAuthorized, setIsAuthorized, isMobile }: HeaderProps) {
                 </div>
 
                 {isAuthorized ? (
-                    <div style={styles.itemContainer} onClick={openLogoutModal}>
+                    <div style={styles.itemContainer}>
                         <img
                             src={profile}
                             alt="Профиль"
@@ -98,24 +29,12 @@ function Header({ isAuthorized, setIsAuthorized, isMobile }: HeaderProps) {
                         <span style={{ ...styles.headerName, cursor: 'pointer' }}>{localStorage.getItem('name') !== undefined? localStorage.getItem('name') : 'Имени нет в ответе!'}</span>
                     </div>
                 ) : (
-                    <div style={styles.itemContainer} onClick={openLoginModal}>
+                    <div style={styles.itemContainer}>
                         <img src={profile} alt="Профиль" style={styles.avatarImg} />
                         <span style={styles.headerTitle}>вход</span>
                     </div>
                 )}
             </div>
-
-            <AuthModal
-                isOpen={isLoginModalOpen}
-                onClose={closeLoginModal}
-                onLogin={handleLogin}
-            />
-
-            <LogoutModal
-                isOpen={isLogoutModalOpen}
-                onClose={closeLogoutModal}
-                onLogout={handleLogout}
-            />
         </header>
     );
 }

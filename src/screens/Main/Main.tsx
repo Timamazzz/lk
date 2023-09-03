@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styles from "./styles";
 import {logo} from "../../constants/images";
-import { usePersonId } from '../../api/getPersonId/getPersonId';
+import { getPersonId } from '../../api/getPersonId/getPersonId';
 import BlueButton from '../../components/ui/button/BlueButton';
 
 interface MainProps {
@@ -12,7 +12,7 @@ interface MainProps {
 
 function Main({ isAuthorized, setIsAuthorized, isMobile }: MainProps) {
 
-    const { personId, getPersonId } = usePersonId();
+    /*const { personId, getPersonId } = getPersonId();
     const [inn, setInn] = useState<string>('');
     const [dateOfBirth, setDateOfBirth] = useState<string>('');
 
@@ -43,10 +43,10 @@ function Main({ isAuthorized, setIsAuthorized, isMobile }: MainProps) {
 
     const handleDateOfBirthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDateOfBirth(event.target.value);
-    };
+    };*/
 
     return (
-        <div style={{height: "100%"}}>
+        /*<div style={{height: "100%"}}>
             {isMobile &&
                 <div style={{display: 'flex', alignItems: "center", justifyContent:'center', flexDirection: 'column', height: "100%"}}>
                     <img style={styles.logo} src={logo} alt="Логотип" />
@@ -70,7 +70,8 @@ function Main({ isAuthorized, setIsAuthorized, isMobile }: MainProps) {
                     <BlueButton text={'Проверить'} onClick={()=>handleLogin(inn, dateOfBirth)} />
                 </div>
             }
-        </div>
+        </div>*/
+        <></>
     );
 }
 

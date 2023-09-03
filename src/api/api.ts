@@ -3,18 +3,8 @@ const apiUrl = "https://89.109.238.137:49001/patents/api";
 const apiKey = "C0F7091E-6BA7-4DBA-9E60-20696016F306";
 
 async function sendRequest(url: string, requestOptions: RequestInit): Promise<any> {
-    try {
-        const response = await fetch(url, requestOptions);
-        if (!response.ok) {
-            throw new Error(`Request failed with status ${response.status}`);
-        }
-
-        const responseData = await response.json();
-        return responseData;
-    } catch (error) {
-        console.error("Error:", error);
-        throw error;
-    }
+    const response = await fetch(url, requestOptions);
+    return await response.json();
 }
 
 export async function get(endpoint: string, params?: Record<string, any>): Promise<any> {
@@ -39,23 +29,18 @@ export async function get(endpoint: string, params?: Record<string, any>): Promi
 }
 
 export async function post(endpoint: string, data: any): Promise<any> {
-    try {
-        const url = `${apiUrl}/${endpoint}`;
-        const requestOptions: RequestInit = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-API-Key": apiKey,
-            },
-            body: JSON.stringify(data),
-        };
+    const url = `${apiUrl}/${endpoint}`;
+    const requestOptions: RequestInit = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-API-Key": apiKey,
+        },
+        body: JSON.stringify(data),
+    };
 
 
-        return await sendRequest(url, requestOptions);
-    } catch (error) {
-        console.error("Error:", error);
-        throw error;
-    }
+    return await sendRequest(url, requestOptions);
 }
 
 export async function postFormData(endpoint: string, data: FormData): Promise<any> {
