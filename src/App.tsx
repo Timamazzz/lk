@@ -26,6 +26,7 @@ function App() {
         if (savedPersonId) {
             setIsAuthorized(true);
         }
+        setIsAuthorized(false)
     }, []);
 
 

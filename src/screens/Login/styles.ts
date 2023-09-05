@@ -8,7 +8,7 @@ const styles: { [key: string]: CSSProperties } = {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        height: "95vh",
+        height: "100vh",
     },
     logo: {
         width: "240px",
@@ -18,11 +18,13 @@ const styles: { [key: string]: CSSProperties } = {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        marginTop: "5%",
-        marginBottom: "5%"
+        marginTop: "2.5%",
+        marginBottom: "2.5%",
+        maxWidth: "400px",
+        width: "85%",
     },
     input: {
-        width: "360px",
+        width: "100%",
         marginBottom: "5%",
         padding: "5px",
         color: colors.white,

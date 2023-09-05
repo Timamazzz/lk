@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import NotFound from '../screens/NotFound/NotFound';
 import Header from "../components/project/header/header";
 import Login from "../screens/Login/Login";
+import Profile from "../screens/Profile/Profile";
 
 interface RouterProps {
     isAuthorized: boolean;
@@ -17,12 +18,12 @@ function AppRouter({ isAuthorized, setIsAuthorized, isMobile }: RouterProps) {
                 <Routes>
                     {isAuthorized ? (
                         <>
-                            <Route path="/profile" element={<div>Profile</div>} />
+                            <Route path="/profile" element={<div><Profile  setIsAuthorized={setIsAuthorized}/></div>} />
                             <Route path="/" element={<Navigate to="/profile" replace />} />
                         </>
                     ) : (
                         <>
-                            <Route path="/login" element={<div><Login /></div>} />
+                            <Route path="/login" element={<div><Login  setIsAuthorized={setIsAuthorized}/></div>} />
                             <Route path="/" element={<Navigate to="/login" replace />} />
                         </>
                     )}

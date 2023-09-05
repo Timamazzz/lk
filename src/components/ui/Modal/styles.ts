@@ -16,6 +16,7 @@ const styles: { [key: string]: CSSProperties } = {
     },
     modalContent: {
         backgroundColor: 'white',
+        maxWidth: "360px",
         width: '85%',
         height: '20%',
         padding: '20px',

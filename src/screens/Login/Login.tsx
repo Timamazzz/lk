@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styles from "./styles";
 import InputMask from "react-input-mask";
 import { logo } from "../../constants/images";
@@ -6,16 +6,22 @@ import globalStyles from "../../constants/globalStyles";
 import BlueButton from "../../components/ui/button/BlueButton";
 import Modal from "../../components/ui/Modal/Modal";
 import { getPersonId } from "../../api/getPersonId/getPersonId";
+import { useNavigate } from 'react-router-dom';
 
-function Login() {
+interface LoginProps {
+    setIsAuthorized: (isAuthorized: boolean) => void;
+}
+
+function Login({ setIsAuthorized }: LoginProps) {
     const [inn, setInn] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
-    const [isAuthorized, setIsAuthorized] = useState(false);
     const [errorModalOpen, setErrorModalOpen] = useState(false);
     const [errorTitle, setErrorTitle] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [isInnValid, setIsInnValid] = useState(false);
     const [isDateOfBirthValid, setIsDateOfBirthValid] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleCheck = async () => {
         const dateParts = dateOfBirth.split('.');
@@ -23,6 +29,7 @@ function Login() {
 
         let data = await getPersonId(inn, formattedDateOfBirth);
         if (data != null) {
+            navigate('/profile');
             setIsAuthorized(true);
         } else {
             setErrorTitle("информация по патенту для текущего лица не найдена");
@@ -33,14 +40,12 @@ function Login() {
     const handleModalClick = () => {
         setErrorModalOpen(false);
     };
-
     const isInputValid = (input: string) => input.length > 0;
     const handleInnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setInn(inputValue);
         setIsInnValid(isInputValid(inputValue));
     };
-
     const handleDateOfBirthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
         setDateOfBirth(inputValue);
