@@ -9,11 +9,21 @@ export async function getPersonId(inn: string, dateOfBirth: string,) {
     if (!response.status)
     {
 
-        const newPersonId = response.personId;
-        const newName = response.name;
+        const newPersonId = response.personId
 
-        //localStorage.setItem('personId', newPersonId);
-        //localStorage.setItem('name', newName);
+        const firstName = response.firstName;
+        const lastName = response.lastName;
+        const patronymic = response.patronymic;
+
+        const name = response.name;
+        const fullName = firstName + " " + lastName + " " + patronymic.charAt(0) + "."
+
+        localStorage.setItem('personId', newPersonId);
+        localStorage.setItem('firstName', firstName);
+        localStorage.setItem('lastName', lastName);
+        localStorage.setItem('patronymic', patronymic);
+        localStorage.setItem('name', name);
+        localStorage.setItem('fullName', fullName);
 
         return newPersonId;
     }

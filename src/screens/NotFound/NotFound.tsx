@@ -18,8 +18,8 @@ function NotFound({ isAuthorized }: { isAuthorized: boolean }) {
 
     return (
         <div style={styles.container}>
-            <h2 style={globalStyles.textWhite}>Страница не найдена</h2>
-            <p style={globalStyles.textWhite}>Возможно, адрес введен неверно или страница была удалена.</p>
+            <h2 style={{...globalStyles.textWhite, ...globalStyles.textCenter}}>Страница не найдена</h2>
+            <p style={{...globalStyles.textWhite, ...globalStyles.textCenter}}>Возможно, адрес введен неверно или страница была удалена.</p>
             <BlueButton text="На главную" myStyles={{ marginTop: '10px' }} onClick={redirectToHomePage} />
         </div>
     );

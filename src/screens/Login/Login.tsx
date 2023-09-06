@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import styles from "./styles";
+import  "./stylePlaceHolder.css";
 import InputMask from "react-input-mask";
 import { logo } from "../../constants/images";
 import globalStyles from "../../constants/globalStyles";
@@ -29,7 +30,6 @@ function Login({ setIsAuthorized }: LoginProps) {
 
         let data = await getPersonId(inn, formattedDateOfBirth);
         if (data != null) {
-            navigate('/profile');
             setIsAuthorized(true);
         } else {
             setErrorTitle("информация по патенту для текущего лица не найдена");
@@ -66,6 +66,7 @@ function Login({ setIsAuthorized }: LoginProps) {
                     placeholder="ИНН"
                     style={{
                         ...styles.input,
+
                     }}
                     value={inn}
                     onChange={handleInnChange}

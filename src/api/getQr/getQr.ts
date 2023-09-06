@@ -1,6 +1,5 @@
 
 import { get, post } from "../api";
-import { Patent } from "../../Classes/Patent";
 
 export async function getQRCode(patentId: string, sum: number): Promise<any> {
     try {

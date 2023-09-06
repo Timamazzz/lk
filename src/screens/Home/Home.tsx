@@ -10,26 +10,9 @@ interface HomeProps {
 }
 
 function Home({ isAuthorized, setIsAuthorized, isMobile }: HomeProps) {
-
-    const handleLogout = () => {
-        localStorage.removeItem('personId');
-        localStorage.removeItem('name');
-        localStorage.removeItem('patent');
-        setIsAuthorized(false);
-        setIsAuthorized(false);
-    };
-
-    
-
     return (
         <div style={{...styles.container, marginTop: isMobile? 0 : 122}}>
-            <Info/>
-            {isMobile &&
-              
-                  <div style={{marginTop: 20}}>
-                    <BlueButton text={'Выход'} onClick={handleLogout} />
-                  </div>
-            }
+            {/*<Patent/>*/}
         </div>
     );
 }

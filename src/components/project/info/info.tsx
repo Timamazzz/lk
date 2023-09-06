@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from "./styles";
 import BlueButton from "../../ui/button/BlueButton";
-import {Patent} from "../../../Classes/Patent";
-import {getPatent} from "../../../api/getPatent/getPatent";
 import {getQRCode} from '../../../api/getQr/getQr';
 import {QRCodeCanvas} from 'qrcode.react';
 import {colors} from "../../../constants/colors";
@@ -11,9 +9,9 @@ import badInfo from '../../../assets/images/Info/badIinfo.png'
 import goodInfo from '../../../assets/images/Info/goodInfo.png'
 
 function Info() {
-
+/*
 const [patent, setPatent] = useState<Patent | null>(null);
-const [patentInfo, setPatentInfo] = useState<any>(null); // Установите начальное значение в null
+const [patentInfo, setPatentInfo] = useState<any>(null);
 const [screens, setScreens] = useState(1);
 
 const [isDebtEnabled, setIsDebtEnabled] = useState(false);
@@ -32,7 +30,7 @@ useEffect(() => {
 useEffect(() => {
   const personId = localStorage.getItem('personId');
   if (personId) {
-    getPatent(personId)
+    getPatents(personId)
       .then((patentObj) => {
         setPatent(patentObj);
       })
@@ -96,7 +94,7 @@ const isMobile = width <= 768;
     };
 
     //v1
-/*    const handleMailToClick = () => {
+/!*    const handleMailToClick = () => {
         const subject = 'Тема вашего письма';
 
         // Получаем текущее изображение QR-кода из холста
@@ -122,7 +120,7 @@ const isMobile = width <= 768;
         console.log("mailtoLink", mailtoLink)
         // Открываем ссылку в новой вкладке
         window.open(mailtoLink);
-    };*/
+    };*!/
 
     //v2
     const handleMailToClick = () => {
@@ -157,10 +155,10 @@ const isMobile = width <= 768;
         const today = new Date();
         const startTime = today.getTime();
 
-/*        const yesterday = new Date(today);
+/!*        const yesterday = new Date(today);
         yesterday.setDate(yesterday.getDate() + 12);
 
-        const endTime = yesterday.getTime();*/
+        const endTime = yesterday.getTime();*!/
 
         const endTime = endDate.getTime();
 
@@ -476,7 +474,7 @@ const isMobile = width <= 768;
                     }
                 </div>
         </>
-    );
+    );*/
 }
 
 export default Info;

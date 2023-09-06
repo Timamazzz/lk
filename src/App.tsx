@@ -3,6 +3,7 @@ import styles from './styles';
 import { Helmet } from "react-helmet";
 import AppRouter from "./navigation/AppRouter";
 import Header from "./components/project/header/header";
+import Footer from "./components/project/footer/footer";
 
 function App() {
     const [width, setWidth] = useState<number>(window.innerWidth);
@@ -21,12 +22,12 @@ function App() {
     useEffect(() => {
         localStorage.setItem('isMobile', isMobile.toString());
     }, [isMobile]);
+
     useEffect(() => {
         const savedPersonId = localStorage.getItem('personId');
-        if (savedPersonId) {
+        if (savedPersonId != null) {
             setIsAuthorized(true);
         }
-        setIsAuthorized(false)
     }, []);
 
 
@@ -36,8 +37,7 @@ function App() {
             <Helmet>
                 <title>Патенты Московской области</title>
             </Helmet>
-            {isAuthorized && <Header isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized} isMobile={isMobile} /> }
-            <AppRouter isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized} isMobile={isMobile} />
+            <AppRouter isAuthorized={isAuthorized} setIsAuthorized={(e)=>setIsAuthorized(e)} isMobile={isMobile} />
         </div>
     );
 }

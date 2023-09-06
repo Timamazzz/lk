@@ -8,6 +8,12 @@ const styles: { [key: string]: CSSProperties } = {
     textBlack: {
         color: colors.black,
     },
+    textBlue: {
+        color: colors.blue,
+    },
+    textLightBlue: {
+        color: colors.lightBlue,
+    },
     textCenter: {
         textAlign: "center",
     },
@@ -22,6 +28,12 @@ const styles: { [key: string]: CSSProperties } = {
     },
     text16: {
         fontSize: "16px",
+    },
+    text12: {
+        fontSize: "12px",
+    },
+    text8: {
+        fontSize: "8px",
     },
 };
 

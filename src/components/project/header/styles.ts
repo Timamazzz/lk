@@ -11,63 +11,39 @@ const styles: { [key: string]: CSSProperties } = {
         width: "100%",
         zIndex:1000
     },
-
     headerContainer: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingTop: '1vh',
         paddingBottom: '1vh',
-        paddingRight: '10vw',
-        paddingLeft: '10vw',
+        paddingRight: '5vw',
+        paddingLeft: '5vw',
     },
-
     logo: {
-        width: 45,
-        height: 58,
+        width: 48,
     },
-
+    avatarImg: {
+        width: 36,
+    },
     itemContainer: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        cursor: "pointer",
     },
-
     headerTitle: {
-        color: colors.blue,
-        fontSize: 32,
-        fontFamily: "Exo 2",
-        textTransform: 'uppercase',
-        marginLeft: 10,
+        marginLeft: "20px",
     },
-
     headerName: {
-        color: colors.blue,
-        textAlign: 'right',
-        fontFamily: 'Exo 2',
-        fontSize: 24,
+        marginLeft: "10px",
     },
-
-    avatarImg: {
-        width: 55,
-        height: 55,
-    },
-
-    modalOverlay: {
-        // Стили для оверлея модального окна
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        background: "rgba(0, 0, 0, 0.5)", // Полупрозрачный фон, чтобы затемнить остальную часть страницы
+    exit: {
         display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
     },
-
+    exitButton: {
+        marginRight: "30px"
+    }
 };
 
 

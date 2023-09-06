@@ -31,7 +31,7 @@ const styles: { [key: string]: CSSProperties } = {
         border: 'none',
         borderBottom: '1px solid white',
         background: 'transparent',
-    },
+    }
 };
 
 
