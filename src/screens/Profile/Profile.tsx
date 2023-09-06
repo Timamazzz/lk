@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import styles from "./styles";
 import {getPatents} from "../../api/getPatents/getPatents";
 import Patent from "../../components/project/patent/Patent";
+import globalStyles from "../../constants/globalStyles";
 
 function Profile() {
 
@@ -21,8 +22,8 @@ function Profile() {
     }, []);
 
     return (
-        <div>
-            <text>Данные по патенту</text>
+        <div style={{...styles.container}}>
+            <text style={{...globalStyles.textWhite, ...styles.title}}>Данные по патенту</text>
             {/* @ts-ignore*/}
             {patents?.length > 0? (
                 /* @ts-ignore*/

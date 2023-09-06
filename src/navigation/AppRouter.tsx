@@ -13,8 +13,6 @@ interface RouterProps {
 }
 
 function AppRouter({ isAuthorized, setIsAuthorized, isMobile }: RouterProps) {
-    console.log(isAuthorized)
-
     return (
         <Router>
             <div>

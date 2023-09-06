@@ -1,6 +1,5 @@
 import { CSSProperties } from 'react';
 import { colors } from "../../../constants/colors";
-import { media } from '../../../constants/media';
 
 const styles: { [key: string]: CSSProperties } = {
     header: {

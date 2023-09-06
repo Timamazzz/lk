@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styles from './styles';
 import { Helmet } from "react-helmet";
 import AppRouter from "./navigation/AppRouter";
-import Header from "./components/project/header/header";
-import Footer from "./components/project/footer/footer";
 
 function App() {
     const [width, setWidth] = useState<number>(window.innerWidth);
