@@ -23,14 +23,14 @@ function Profile() {
 
     return (
         <div style={{...styles.container}}>
-            <text style={{...globalStyles.textWhite, ...styles.title}}>Данные по патенту</text>
+            <text style={{...globalStyles.textWhite, ...styles.title, ...globalStyles.text32, ...globalStyles.textCenter, ...globalStyles.textUpperCase}}>Данные по патенту</text>
             {/* @ts-ignore*/}
             {patents?.length > 0? (
                 /* @ts-ignore*/
                 patents.map((patent: any, index: number) => (<Patent patent={patent} />))
                 ) :
                 (
-                    <text>Нет активных патентов</text>
+                    <text style={{...globalStyles.textWhite, ...globalStyles.text32}}>Нет активных патентов</text>
                 )
             }
 

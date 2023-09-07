@@ -5,9 +5,11 @@ const styles: { [key: string]: CSSProperties } = {
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
-        paddingTop: '15vh'
+        paddingTop: '15vh',
+        paddingBottom: '15vh',
     },
     title: {
+        marginBottom: '15px',
     }
 };
 

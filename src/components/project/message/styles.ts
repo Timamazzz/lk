@@ -5,12 +5,21 @@ const styles: { [key: string]: CSSProperties } = {
     container: {
         display: "flex",
         backgroundColor: colors.white,
-        width: '100%'
+        flexDirection: "column",
+        alignItems: "center",
+        paddingBottom: "10px",
+        paddingTop: "10px",
+        marginBottom: "15px",
+        marginTop: "15px",
+        width: "100%"
     },
     head: {
-        color: colors.lightBlue,
-        fontSize:14
+        display: "flex",
+        alignItems: "center"
     },
+    info: {
+        width: "30px"
+    }
 };
 
 export default styles;

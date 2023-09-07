@@ -1,13 +1,20 @@
 import { CSSProperties } from 'react';
-import { colors } from "../../../constants/colors";
+import { colors } from "../../constants/colors";
 
 const styles: { [key: string]: CSSProperties } = {
     container: {
         display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        paddingTop: '15vh',
+        paddingBottom: '15vh',
+    },
+    content: {
+        display: "flex",
         justifyContent: "center",
         flexDirection: 'column',
         alignItems: 'center',
-        maxWidth: "1200px",
+        maxWidth: "900px",
         width: "95vw",
     },
     patentContainer: {
@@ -17,96 +24,14 @@ const styles: { [key: string]: CSSProperties } = {
         backgroundColor: colors.white,
         alignItems: 'center',
         width: "100%",
-        marginBottom: "50px",
-        marginTop: "15px",
-        paddingBottom: "5%"
-    },
-    paymentContainer: {
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: 'column',
-        alignItems: 'center',
-        width: "100%%",
-    },
-    paymentContent:{
-        display: "flex",
-        justifyContent: "space-around",
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: "85%",
-    },
-    paymentContentCol:{
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: 'column',
-        alignItems: 'center',
-        marginLeft: 5,
-        marginRight: 5,
-    },
-    paymentPatentContainer: {
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: 'column',
-        backgroundColor: colors.white,
-        alignItems: 'center',
-        width: "100%",
-        marginTop: "15px",
-        paddingBottom: "5%"
-    },
-    headerContainerInfo: {
-        display:"flex",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "100%",
-    },
-    main: {
-        display: "flex",
-        width: '100%',
-        justifyContent: "space-between",
-        alignItems: "center",
+        paddingBottom: "5%",
+        paddingTop: "5%",
     },
     row: {
         display: "flex",
-        width: '100%',
+        width: '90%',
         alignItems: "center",
         justifyContent: "space-between",
-    },
-    column: {
-        display: "flex",
-        flex: 1,
-        flexDirection: "column",
-        justifyContent: "space-between",
-        alignItems: 'center',
-        paddingLeft: "5%",
-        paddingRight: "5%",
-    },
-    payedDaysContainer: {
-        justifyContent: 'space-between',
-        flexDirection: 'column'
-    },
-    radius: {
-        width: 64,
-        height: 64,
-        justifyContent: 'center',
-        alignItems: 'center',
-        display: 'flex',
-        borderRadius: 100
-    },
-    progress: {
-        width: '90%',
-        borderRadius: 0,
-        position: 'relative',
-        height: 20,
-        background: colors.gray, // Set the background color for the unfilled portion
-    },
-
-    progressBar: {
-        height: '100%',
-        borderRadius: 0,
-        background: colors.green, // Set the color for the filled portion
-        position: 'absolute',
-        top: 0,
-        right: 0,
     },
     containerBlue: {
         display: 'flex',

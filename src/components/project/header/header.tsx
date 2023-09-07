@@ -4,6 +4,7 @@ import './style.css';
 import BlueButton from "../../ui/button/BlueButton";
 import globalStyles from "../../../constants/globalStyles";
 import {getPersonId} from "../../../api/getPersonId/getPersonId";
+import {useNavigate} from "react-router-dom";
 
 interface HeaderProps {
     setIsAuthorized: (isAuthorized: boolean) => void;
@@ -11,6 +12,7 @@ interface HeaderProps {
 }
 
 function Header({ setIsAuthorized, isMobile }: HeaderProps) {
+    const navigate = useNavigate()
     const logout = async () => {
         localStorage.removeItem('personId');
         localStorage.removeItem('firstName');
@@ -24,7 +26,7 @@ function Header({ setIsAuthorized, isMobile }: HeaderProps) {
     return (
         <header style={{...styles.header}}>
             <div style={{...styles.headerContainer}}>
-                <div style={{...styles.itemContainer, cursor: "pointer"}}>
+                <div style={{...styles.itemContainer, cursor: "pointer"}} onClick={() => navigate("/")}>
                     <img style={styles.logo} src={logo} alt="Логотип" />
                     {!isMobile && <span style={{...styles.headerTitle, ...globalStyles.textBlue, ...globalStyles.textBold, ...globalStyles.text24}}>Личный кабинет мигранта</span>}
                 </div>
