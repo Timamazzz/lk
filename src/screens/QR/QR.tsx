@@ -9,7 +9,8 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import {logo} from "../../constants/images";
 import {colors} from "../../constants/colors";
-import cyrillicRegularFont from "../../assets/fonts/Exo_2/static/Exo2-Regular.ttf";
+// @ts-ignore
+import AlumniSansRegularTTF from "../../assets/fonts/Alumni_Sans/static/AlumniSans-Regular.ttf";
 
 function QR() {
     const { patentNumber, price } = useParams();
@@ -29,9 +30,9 @@ function QR() {
         const doc = new jsPDF();
 
         const pageWidth = doc.internal.pageSize.getWidth();
-        doc.addFileToVFS("Cyrillic-Regular.ttf", cyrillicRegularFont);
-        doc.addFont("Cyrillic-Regular.ttf", "Cyrillic", "normal");
-
+        doc.addFileToVFS("AlumniSans-Regular.ttf", AlumniSansRegularTTF);
+        doc.addFont("AlumniSans-Regular.ttf", "AlumniSans", "regular");
+        doc.setFont("AlumniSans"); // Устанавливаем шрифт
 
         const logoUrl = logo;
         const logoWidth = 632 / 100 * 2.5;
@@ -50,19 +51,66 @@ function QR() {
         doc.setFontSize(20);
         doc.setTextColor(colors.gray)
         text = 'QR код для оплаты патента';
-        textY = logoY + 100;
-        textX = (pageWidth - logoWidth) / 2;
+        textY = logoY + logoHeight + 20;
+        let textWidth = doc.getTextWidth(text);
+        textX = (pageWidth - textWidth) / 2;
         doc.text(text, textX,  textY);
+
+        // Рассчитываем X и Y координаты для размещения QR-кода по центру
+        const qrWidth = 100;
+        const qrHeight = 100;
+        const qrX = (pageWidth - qrWidth) / 2;
+        const qrY = textY + 20;
+
+        // Вставляем QR-код
+        const qrCanvas = document.getElementById('qrcode-canvas') as HTMLCanvasElement;
+        const qrDataUrl = qrCanvas.toDataURL('image/png');
+        doc.addImage(qrDataUrl, 'PNG', qrX, qrY, qrWidth, qrHeight);
+
+        // Информация о патенте
+        const patentInfoY = qrY + qrHeight + 20;
+        doc.setFontSize(14);
+
+// Патент №
+        doc.setTextColor(colors.black) // Черный цвет текста
+        doc.text('Патент №', 20, patentInfoY);
+        doc.setTextColor(colors.blue) // Синий цвет текста
+        doc.text(`${patent.number}`, pageWidth - 20, patentInfoY, { align: 'right' });
+
+// Выдан
+        doc.setTextColor(colors.black)
+        doc.text('Выдан:', 20, patentInfoY + 15);
+        doc.setTextColor(colors.blue)
+        doc.text(`${formatDate(patent.issued)}`, pageWidth - 20, patentInfoY + 15, { align: 'right' });
+
+// ФИО
+        doc.setTextColor(colors.black)
+        doc.text('ФИО:', 20, patentInfoY + 30);
+        doc.setTextColor(colors.blue)
+        doc.text(`${patent.name}`, pageWidth - 20, patentInfoY + 30, { align: 'right' });
+
+// Дата выдачи
+        doc.setTextColor(colors.black)
+        doc.text('Дата выдачи:', 20, patentInfoY + 45);
+        doc.setTextColor(colors.blue)
+        doc.text(`${formatDate(patent.dateOfIssue)}`, pageWidth - 20, patentInfoY + 45, { align: 'right' });
+
+// Срок действия до
+        doc.setTextColor(colors.black)
+        doc.text('Срок действия до:', 20, patentInfoY + 60);
+        doc.setTextColor(colors.blue)
+        doc.text(`${formatDate(patent.expirationDate)}`, pageWidth - 20, patentInfoY + 60, { align: 'right' });
+
+// Сумма к оплате
+        doc.setTextColor(colors.black)
+        doc.text('Сумма к оплате:', 20, patentInfoY + 75);
+        doc.setTextColor(colors.blue)
+        doc.text(`${(amount / 100).toLocaleString('ru-RU')} руб.`, pageWidth - 20, patentInfoY + 75, { align: 'right' });
+
 
         const pdfDataUrl = doc.output('datauristring');
         savePDF(pdfDataUrl, 'patent.pdf');
     };
-
-
-
-
-
-
 
     useEffect(()=>{
             if (patent) {
