@@ -9,9 +9,10 @@ import {useNavigate} from "react-router-dom";
 interface PatentProps {
     patent: any;
     isPayment?: boolean;
+    isMobile?: boolean;
 }
 
-function Patent({patent, isPayment = false}: PatentProps) {
+function Patent({patent, isPayment = false, isMobile}: PatentProps) {
     const [payedDays, setPayedDays] = useState(0)
     const progressPercentage = (payedDays / 365) * 100;
     const [month, setMonth] = useState(1);
@@ -109,24 +110,24 @@ function Patent({patent, isPayment = false}: PatentProps) {
                         <p style={{...globalStyles.textBlack, ...globalStyles.text16, ...globalStyles.textCenter}}>оплачено дней</p>
                     </div>
                     <div style={{ ...styles.column}}>
-                        <div style={styles.row}>
+                        <div style={isMobile? {...styles.columnInfo} : {...styles.row}}>
                             <p style={{...globalStyles.text16}}>Выдан: </p>
                             <p style={{...globalStyles.text16, ...globalStyles.textBold, color: getTextColor(payedDays)}}>{formatDate(patent.issued)}</p>
                         </div>
-                        <div style={styles.row}>
+                        <div style={isMobile? {...styles.columnInfo} : {...styles.row}}>
                             <p style={{...globalStyles.text16}}>Дата выдачи: </p>
                             <p style={{...globalStyles.text16, ...globalStyles.textBold, color: getTextColor(payedDays)}}>{formatDate(patent.dateOfIssue)}</p>
                         </div>
-                        <div style={styles.row}>
+                        <div style={isMobile? {...styles.columnInfo} : {...styles.row}}>
                             <p style={{ ...globalStyles.text16}}>Срок действия до: </p>
                             <p style={{...globalStyles.text16, ...globalStyles.textBold, color: getTextColor(payedDays)}}>{formatDate(patent.expirationDate)}</p>
                         </div>
-                        <div style={styles.row}>
+                        <div style={isMobile? {...styles.columnInfo} : {...styles.row}}>
                             <p style={{...globalStyles.text16}}>Стоимость патента: </p>
                             <p style={{...globalStyles.text16, ...globalStyles.textBold, color: getTextColor(payedDays)}}>{patent.price / 100}р</p>
                         </div>
                         {payedDays < 0?
-                            <div style={styles.row}>
+                            <div style={isMobile? {...styles.columnInfo} : {...styles.row}}>
                                 <p style={{...globalStyles.text16, ...globalStyles.textRed, ...globalStyles.textBold}}>Задолжность дней: </p>
                                 <p style={{...globalStyles.text16, ...globalStyles.textRed, ...globalStyles.textBold}}>{Math.abs(payedDays)}</p>
                             </div>
@@ -153,11 +154,11 @@ function Patent({patent, isPayment = false}: PatentProps) {
                         <div style={styles.paymentContent}>
                             <div style={styles.paymentContentCol}>
                                 <div style={styles.row}>
-                                    <p style={{...globalStyles.text16}}>Стоимость патента</p>
-                                    <p style={{...globalStyles.text24, ...globalStyles.textBold, ...globalStyles.textLightBlue}}>{patent?.price / 100}р</p>
+                                    <p style={{...globalStyles.text12}}>Стоимость патента</p>
+                                    <p style={{...globalStyles.text20, ...globalStyles.textBold, ...globalStyles.textLightBlue}}>{patent?.price / 100}р</p>
                                 </div>
                                 <div style={styles.row}>
-                                    <p style={{...globalStyles.text16}}>Количество месяцев</p>
+                                    <p style={{...globalStyles.text12}}>Количество месяцев</p>
                                     <div style={styles.containerBlue}>
                                         <div onClick={()=>{handleMonthClickMinus()}} style={styles.buttonClick}>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="11" height="3" viewBox="0 0 11 3" fill="none">
@@ -170,7 +171,7 @@ function Patent({patent, isPayment = false}: PatentProps) {
                                                 </defs>
                                             </svg>
                                         </div>
-                                        <p style={{...globalStyles.textWhite, ...globalStyles.textBold, ...globalStyles.text16}}>{month}</p>
+                                        <p style={{...globalStyles.textWhite, ...globalStyles.textBold, ...globalStyles.text12}}>{month}</p>
                                         <div onClick={()=>{handleMonthClick()}} style={styles.buttonClick}>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11" fill="none">
                                                 <path d="M0 7V4H4V0H7V4H11V7H7V11H4V7H0Z" fill="url(#paint0_linear_320_213)"/>
@@ -187,11 +188,11 @@ function Patent({patent, isPayment = false}: PatentProps) {
                             </div>
                             <div style={styles.paymentContentCol}>
                                 <div style={styles.row}>
-                                    <p style={{...globalStyles.text16}}>Задолженность по патенту </p>
-                                    <p style={{...globalStyles.text24, ...globalStyles.textBold, ...globalStyles.textRed}}>{patent?.debt / 100}р</p>
+                                    <p style={{...globalStyles.text12}}>Задолженность по патенту </p>
+                                    <p style={{...globalStyles.text20, ...globalStyles.textBold, ...globalStyles.textRed}}>{patent?.debt / 100}р</p>
                                 </div>
                                 <div style={styles.row}>
-                                    <p style={{ ...globalStyles.text16}}>Включить задолженность</p>
+                                    <p style={{ ...globalStyles.text12}}>Включить задолженность</p>
                                     <div onClick={handleDebtToggle} style={!isDebtEnabled? styles.buttonSwitchGrey : styles.buttonSwitch}>
                                         {!isDebtEnabled?
                                             <div style={styles.buttonClickLeft}>
@@ -223,8 +224,8 @@ function Patent({patent, isPayment = false}: PatentProps) {
                             </div>
                         </div>
                         <div style={{...styles.row, justifyContent: "center"}}>
-                            <p style={{...globalStyles.text16, }}>Сумма к оплате</p>
-                            <p style={{...globalStyles.text24, ...globalStyles.textLightBlue, ...globalStyles.textBold, marginLeft: 10}}>{sum / 100}р</p>
+                            <p style={{...globalStyles.text12, }}>Сумма к оплате</p>
+                            <p style={{...globalStyles.text20, ...globalStyles.textLightBlue, ...globalStyles.textBold, marginLeft: 10}}>{sum / 100}р</p>
                         </div>
                         <div style={styles.buttonsContainer}>
                             <BlueButton text={'Назад'} myStyles={styles.buttonBack} onClick={() => {navigate(`/profile`)}} />
@@ -233,7 +234,9 @@ function Patent({patent, isPayment = false}: PatentProps) {
                     </div>
                 }
             </div>
-
+            {
+                !isPayment && <div style={{marginBottom: 35}}></div>
+            }
             {(patent?.messages.length > 0 && isPayment) &&
                 patent.messages.map((message: any, index: number) => (<Message message={message} />))
             }

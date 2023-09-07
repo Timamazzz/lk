@@ -9,8 +9,8 @@ const styles: { [key: string]: CSSProperties } = {
         alignItems: "center",
         paddingBottom: "10px",
         paddingTop: "10px",
-        marginBottom: "15px",
-        marginTop: "15px",
+        marginBottom: "5px",
+        marginTop: "5px",
         width: "100%"
     },
     head: {

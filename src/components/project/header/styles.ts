@@ -4,7 +4,6 @@ import { colors } from "../../../constants/colors";
 const styles: { [key: string]: CSSProperties } = {
     header: {
         backgroundColor: colors.white,
-        position: 'fixed',
         top: 0,
         left: 0,
         width: "100%",

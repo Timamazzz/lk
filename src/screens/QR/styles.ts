@@ -6,8 +6,7 @@ const styles: { [key: string]: CSSProperties } = {
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
-        paddingTop: '15vh',
-        paddingBottom: '15vh',
+        paddingTop: '5vh',
     },
     content: {
         display: "flex",
@@ -53,7 +52,7 @@ const styles: { [key: string]: CSSProperties } = {
     },
     patentInfoContainer: {
         flex: 1,
-        marginLeft: '20px', // Adjust the spacing as needed
+        marginLeft: '10px',
     },
     labelDataPair: {
         display: 'flex',
@@ -61,6 +60,7 @@ const styles: { [key: string]: CSSProperties } = {
         marginBottom: '8px',
         alignItems: "center"
     },
+
 };
 
 export default styles;

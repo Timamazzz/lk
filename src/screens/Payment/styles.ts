@@ -6,8 +6,7 @@ const styles: { [key: string]: CSSProperties } = {
         display: "flex",
         alignItems: "center",
         flexDirection: "column",
-        paddingTop: '15vh',
-        paddingBottom: '15vh',
+        paddingTop: '5vh',
     },
     content: {
         display: "flex",

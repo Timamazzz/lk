@@ -31,6 +31,10 @@ const styles: { [key: string]: CSSProperties } = {
         fontSize: "32px",
         fontFamily: 'Alumni Sans, sans-serif',
     },
+    text28: {
+        fontSize: "28px",
+        fontFamily: 'Alumni Sans, sans-serif',
+    },
     text24: {
         fontSize: "24px",
         fontFamily: 'Alumni Sans, sans-serif',

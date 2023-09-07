@@ -5,7 +5,6 @@ import { media } from '../../../constants/media';
 const styles: { [key: string]: CSSProperties } = {
     footer: {
         backgroundColor: colors.white,
-        position: 'fixed',
         bottom: 0,
         left: 0,
         width: "100%",

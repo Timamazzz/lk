@@ -80,6 +80,12 @@ const styles: { [key: string]: CSSProperties } = {
         paddingLeft: "5%",
         paddingRight: "5%",
     },
+    columnInfo: {
+        display: "flex",
+        flex: 1,
+        flexDirection: "column",
+        alignItems: "flex-start",
+    },
     payedDaysContainer: {
         justifyContent: 'space-between',
         flexDirection: 'column'

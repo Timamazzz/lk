@@ -4,7 +4,11 @@ import styles from './styles';
 import globalStyles from "../../constants/globalStyles";
 import Patent from "../../components/project/patent/Patent";
 
-function Payment() {
+interface PaymentProps {
+    isMobile: boolean;
+}
+
+function Payment({ isMobile }: PaymentProps) {
     const { patentNumber } = useParams();
     const [patent, setPatent] = useState<any>();
     useEffect(() => {
@@ -19,7 +23,7 @@ function Payment() {
     return (
         <div style={styles.container}>
             <text style={{...globalStyles.text32, ...globalStyles.textWhite, ...globalStyles.textUpperCase}}>Оплата патента</text>
-            {patent && <Patent isPayment patent={patent} />}
+            {patent && <Patent isPayment patent={patent} isMobile={isMobile} />}
         </div>
     );
 }

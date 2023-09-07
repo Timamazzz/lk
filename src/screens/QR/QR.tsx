@@ -6,17 +6,19 @@ import BlueButton from "../../components/ui/button/BlueButton";
 import {getQRCode} from "../../api/getQr/getQr";
 import {QRCodeCanvas} from 'qrcode.react';
 import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 import {logo} from "../../constants/images";
 import {colors} from "../../constants/colors";
-// @ts-ignore
-import AlumniSansRegularTTF from "../../assets/fonts/Alumni_Sans/static/AlumniSans-Regular.ttf";
+import "../../assets/fonts/AlumniSans-Regular-normal"
+interface QRProps {
+    isMobile: boolean;
+}
 
-function QR() {
+function QR({ isMobile }:QRProps) {
     const { patentNumber, price } = useParams();
     const [patent, setPatent] = useState<any>();
     const [amount, setAmount] = useState<any>(0);
     const [qr, setQr] = useState('')
+    const [qrData, setQrData] = useState<any>({});
     const savePDF = (pdfDataUrl: string, fileName: string) => {
         const anchor = document.createElement('a');
         anchor.href = pdfDataUrl;
@@ -28,11 +30,9 @@ function QR() {
     };
     const generatePdf = () => {
         const doc = new jsPDF();
+        doc.setFont('AlumniSans-Regular');
 
         const pageWidth = doc.internal.pageSize.getWidth();
-        doc.addFileToVFS("AlumniSans-Regular.ttf", AlumniSansRegularTTF);
-        doc.addFont("AlumniSans-Regular.ttf", "AlumniSans", "regular");
-        doc.setFont("AlumniSans"); // Устанавливаем шрифт
 
         const logoUrl = logo;
         const logoWidth = 632 / 100 * 2.5;
@@ -41,14 +41,14 @@ function QR() {
         const logoY = 24;
         doc.addImage(logoUrl, 'PNG', logoX, 24, logoWidth, logoHeight);
 
-        doc.setFontSize(48);
+        doc.setFontSize(64);
         doc.setTextColor(colors.lightBlue)
         let text = 'oplatipatent.ru';
         let textY = logoY + (logoHeight * 3/ 4);
         let textX = logoX + logoWidth + 15;
         doc.text(text, textX,  textY);
 
-        doc.setFontSize(20);
+        doc.setFontSize(64);
         doc.setTextColor(colors.gray)
         text = 'QR код для оплаты патента';
         textY = logoY + logoHeight + 20;
@@ -69,7 +69,7 @@ function QR() {
 
         // Информация о патенте
         const patentInfoY = qrY + qrHeight + 20;
-        doc.setFontSize(14);
+        doc.setFontSize(36);
 
 // Патент №
         doc.setTextColor(colors.black) // Черный цвет текста
@@ -118,7 +118,7 @@ function QR() {
                     setQr(resp.payInfo)
                 })
             }
-    },[patent])
+    },[amount, patent, qr])
 
     useEffect(() => {
         if (price) setAmount(price);
@@ -132,6 +132,25 @@ function QR() {
             setPatent(selectedPatent);
         }
     }, [patentNumber]);
+
+    useEffect(() => {
+        if (qr) {
+            // Разбиваем строку qr по символу "|"
+            const qrFields = qr.split('|');
+
+            // Создаем объект qrData, заполняя его данными из строки qr
+            const data = {};
+            qrFields.forEach(field => {
+                const [key, value] = field.split('=');
+                // @ts-ignore
+                data[key] = value;
+            });
+
+            // Устанавливаем qrData в состояние
+            setQrData(data);
+        }
+    }, [qr]);
+
 
     const navigate = useNavigate();
 
@@ -147,28 +166,84 @@ function QR() {
 
     return (
         <div style={styles.container}>
-            <text style={{ ...globalStyles.text32, ...globalStyles.textWhite, ...globalStyles.textUpperCase }}>QR КОД ДЛЯ ОПЛАТЫ ПАТЕНТА</text>
+            <text style={isMobile? {...globalStyles.text24, ...globalStyles.textWhite, ...globalStyles.textUpperCase} : { ...globalStyles.text32, ...globalStyles.textWhite, ...globalStyles.textUpperCase }}>QR КОД ДЛЯ ОПЛАТЫ ПАТЕНТА</text>
             <div style={styles.content}>
                 <div style={{ ...styles.patentContainer }}>
                     <div style={styles.buttonsContainer}>
-                            <QRCodeCanvas size={500}  id="qrcode-canvas" value={qr}  style={styles.qrImage}/>
-                        <div style={styles.patentInfoContainer}>
-                            <div style={styles.labelDataPair}>
-                                <p style={{...globalStyles.text20, ...globalStyles.textBold, ...globalStyles.textGray}}>Патент №:</p>
-                                <p style={{...globalStyles.text32, ...globalStyles.textBold, ...globalStyles.textLightBlue}}>{patentNumber}</p>
+                        <QRCodeCanvas size={500} id="qrcode-canvas" value={qr} style={styles.qrImage} />
+                        {!isMobile &&
+                            <div style={styles.patentInfoContainer}>
+                                <div style={styles.labelDataPair}>
+                                    <p style={{...globalStyles.text20, ...globalStyles.textBold, ...globalStyles.textGray}}>Патент №:</p>
+                                    <p style={{...globalStyles.text32, ...globalStyles.textBold, ...globalStyles.textLightBlue}}>{patentNumber}</p>
+                                </div>
+                                <div style={styles.labelDataPair}>
+                                    <p style={{...globalStyles.text20, ...globalStyles.textGray}}>Выдан:</p>
+                                    <p style={{...globalStyles.text20, ...globalStyles.textLightBlue}}>{formatDate(patent?.issued)}</p>
+                                </div>
+                                <div style={styles.labelDataPair}>
+                                    <p style={{...globalStyles.text20, ...globalStyles.textGray}}>Срок действия до:</p>
+                                    <p style={{...globalStyles.text20, ...globalStyles.textLightBlue}}>{formatDate(patent?.expirationDate)}</p>
+                                </div>
+                                <div style={styles.labelDataPair}>
+                                    <p style={{...globalStyles.text20, ...globalStyles.textGray}}>Сумма к оплате:</p>
+                                    <p style={{...globalStyles.text20, ...globalStyles.textLightBlue}}>{amount / 100} р</p>
+                                </div>
                             </div>
-                            <div style={styles.labelDataPair}>
-                                <p style={{...globalStyles.text20, ...globalStyles.textGray}}>Выдан:</p>
-                                <p style={{...globalStyles.text20, ...globalStyles.textLightBlue}}>{formatDate(patent?.issued)}</p>
-                            </div>
-                            <div style={styles.labelDataPair}>
-                                <p style={{...globalStyles.text20, ...globalStyles.textGray}}>Срок действия до:</p>
-                                <p style={{...globalStyles.text20, ...globalStyles.textLightBlue}}>{formatDate(patent?.expirationDate)}</p>
-                            </div>
-                            <div style={styles.labelDataPair}>
-                                <p style={{...globalStyles.text20, ...globalStyles.textGray}}>Сумма к оплате:</p>
-                                <p style={{...globalStyles.text20, ...globalStyles.textLightBlue}}>{amount / 100} р</p>
-                            </div>
+                        }
+                    </div>
+                    <div style={{...styles.patentInfoContainer, width: "90%"}}>
+                        {isMobile &&
+                            <>
+                                <div style={styles.labelDataPair}>
+                                    <p style={{...globalStyles.text20, ...globalStyles.textBold, ...globalStyles.textGray}}>Патент №:</p>
+                                    <p style={{...globalStyles.text32, ...globalStyles.textBold, ...globalStyles.textLightBlue}}>{patentNumber}</p>
+                                </div>
+                                <div style={styles.labelDataPair}>
+                                    <p style={{...globalStyles.text20, ...globalStyles.textGray}}>Выдан:</p>
+                                    <p style={{...globalStyles.text20, ...globalStyles.textLightBlue}}>{formatDate(patent?.issued)}</p>
+                                </div>
+                                <div style={styles.labelDataPair}>
+                                    <p style={{...globalStyles.text20, ...globalStyles.textGray}}>Срок действия до:</p>
+                                    <p style={{...globalStyles.text20, ...globalStyles.textLightBlue}}>{formatDate(patent?.expirationDate)}</p>
+                                </div>
+                                <div style={styles.labelDataPair}>
+                                    <p style={{...globalStyles.text20, ...globalStyles.textGray}}>Сумма к оплате:</p>
+                                    <p style={{...globalStyles.text20, ...globalStyles.textLightBlue}}>{amount / 100} р</p>
+                                </div>
+                            </>
+                        }
+                        <div style={styles.labelDataPair}>
+                            <p style={{ ...globalStyles.text20, ...globalStyles.textBold, ...globalStyles.textGray }}>Получатель:</p>
+                            <p style={{ ...globalStyles.text20, ...globalStyles.textLightBlue }}>{qrData?.Name}</p>
+                        </div>
+                        <div style={styles.labelDataPair}>
+                            <p style={{ ...globalStyles.text20, ...globalStyles.textGray }}>ИНН получателя:</p>
+                            <p style={{ ...globalStyles.text20, ...globalStyles.textLightBlue }}>{qrData?.PayeeINN}</p>
+                        </div>
+                        <div style={styles.labelDataPair}>
+                            <p style={{ ...globalStyles.text20, ...globalStyles.textGray }}>КБК:</p>
+                            <p style={{ ...globalStyles.text20, ...globalStyles.textLightBlue }}>{qrData?.CBC}</p>
+                        </div>
+                        <div style={styles.labelDataPair}>
+                            <p style={{ ...globalStyles.text20, ...globalStyles.textGray }}>БИК:</p>
+                            <p style={{ ...globalStyles.text20, ...globalStyles.textLightBlue }}>{qrData?.BIC}</p>
+                        </div>
+                        <div style={styles.labelDataPair}>
+                            <p style={{ ...globalStyles.text20, ...globalStyles.textGray }}>ОКТМО:</p>
+                            <p style={{ ...globalStyles.text20, ...globalStyles.textLightBlue }}>{qrData?.OKTMO}</p>
+                        </div>
+                        <div style={styles.labelDataPair}>
+                            <p style={{ ...globalStyles.text20, ...globalStyles.textGray }}>ФИО плательщика:</p>
+                            <p style={{ ...globalStyles.text20, ...globalStyles.textLightBlue }}>{qrData?.LASTNAME} {qrData?.FIRSTNAME} {qrData?.MIDDLENAME}</p>
+                        </div>
+                        <div style={styles.labelDataPair}>
+                            <p style={{ ...globalStyles.text20, ...globalStyles.textGray }}>ИНН плательщика:</p>
+                            <p style={{ ...globalStyles.text20, ...globalStyles.textLightBlue }}>{qrData?.PayerINN}</p>
+                        </div>
+                        <div style={styles.labelDataPair}>
+                            <p style={{ ...globalStyles.text20, ...globalStyles.textGray }}>Сумма:</p>
+                            <p style={{ ...globalStyles.text20, ...globalStyles.textLightBlue }}>{qrData?.Sum / 100} р</p>
                         </div>
                     </div>
                     <div style={styles.buttonsContainer}>
@@ -178,6 +253,7 @@ function QR() {
                 </div>
             </div>
         </div>
+
     );
 }
 

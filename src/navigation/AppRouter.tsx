@@ -22,9 +22,9 @@ function AppRouter({ isAuthorized, setIsAuthorized, isMobile }: RouterProps) {
                 <Routes>
                     {isAuthorized ? (
                         <>
-                            <Route path="/profile" element={<div><Profile  /></div>} />
-                            <Route path="/profile/payment/:patentNumber" element={<div><Payment  /></div>} />
-                            <Route path="/profile/payment/:patentNumber/:price" element={<div><QR  /></div>} />
+                            <Route path="/profile" element={<div><Profile isMobile={isMobile} /></div>} />
+                            <Route path="/profile/payment/:patentNumber" element={<div><Payment isMobile={isMobile}  /></div>} />
+                            <Route path="/profile/payment/:patentNumber/:price" element={<div><QR isMobile={isMobile}  /></div>} />
                             <Route path="/" element={<Navigate to="/profile" replace />} />
                             <Route path="/login" element={<Navigate to="/profile" replace />} />
                         </>

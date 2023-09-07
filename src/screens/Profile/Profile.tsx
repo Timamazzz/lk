@@ -4,7 +4,11 @@ import {getPatents} from "../../api/getPatents/getPatents";
 import Patent from "../../components/project/patent/Patent";
 import globalStyles from "../../constants/globalStyles";
 
-function Profile() {
+interface ProfileProps {
+    isMobile: boolean;
+}
+
+function Profile({ isMobile }: ProfileProps) {
 
     const [patents, setPatents] = useState<any[]>([]);
 
@@ -27,7 +31,7 @@ function Profile() {
             {/* @ts-ignore*/}
             {patents?.length > 0? (
                 /* @ts-ignore*/
-                patents.map((patent: any, index: number) => (<Patent patent={patent} />))
+                patents.map((patent: any, index: number) => (<Patent patent={patent} isMobile={isMobile} />))
                 ) :
                 (
                     <text style={{...globalStyles.textWhite, ...globalStyles.text32}}>Нет активных патентов</text>
