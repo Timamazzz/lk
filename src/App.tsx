@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './styles';
 import { Helmet } from "react-helmet";
 import AppRouter from "./navigation/AppRouter";
+import config from "../src/config.json"
 
 function App() {
     const [width, setWidth] = useState<number>(window.innerWidth);
@@ -31,9 +32,9 @@ function App() {
 
 
     return (
-        <div style={styles.App}>
+        <div style={isMobile? {...styles.AppMobile}: {...styles.App}}>
             <Helmet>
-                <title>Патенты Московской области</title>
+                <title>{config.title}</title>
             </Helmet>
             <AppRouter isAuthorized={isAuthorized} setIsAuthorized={(e)=>setIsAuthorized(e)} isMobile={isMobile} />
         </div>

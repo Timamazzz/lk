@@ -9,6 +9,8 @@ import jsPDF from "jspdf";
 import {logo} from "../../constants/images";
 import {colors} from "../../constants/colors";
 import "../../assets/fonts/AlumniSans-Regular-normal"
+import config from "../../config.json"
+
 interface QRProps {
     isMobile: boolean;
 }
@@ -43,7 +45,7 @@ function QR({ isMobile }:QRProps) {
 
         doc.setFontSize(64);
         doc.setTextColor(colors.lightBlue)
-        let text = 'oplatipatent.ru';
+        let text = config.websiteAddress;
         let textY = logoY + (logoHeight * 3/ 4);
         let textX = logoX + logoWidth + 15;
         doc.text(text, textX,  textY);
@@ -87,7 +89,7 @@ function QR({ isMobile }:QRProps) {
         doc.setTextColor(colors.black)
         doc.text('ФИО:', 20, patentInfoY + 30);
         doc.setTextColor(colors.blue)
-        doc.text(`${patent.name}`, pageWidth - 20, patentInfoY + 30, { align: 'right' });
+        doc.text(`${localStorage.getItem("fullName")}`, pageWidth - 20, patentInfoY + 30, { align: 'right' });
 
 // Дата выдачи
         doc.setTextColor(colors.black)

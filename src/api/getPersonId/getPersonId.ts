@@ -16,8 +16,7 @@ export async function getPersonId(inn: string, dateOfBirth: string,) {
         const patronymic = response.patronymic;
 
         const name = response.name;
-        const fullName = firstName + " " + lastName + " " + patronymic.charAt(0) + "."
-
+        const fullName = firstName + " " + lastName + (patronymic? " " + patronymic.charAt(0) + "." : "");
         localStorage.setItem('personId', newPersonId);
         localStorage.setItem('firstName', firstName);
         localStorage.setItem('lastName', lastName);

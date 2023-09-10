@@ -88,7 +88,7 @@ function Patent({patent, isPayment = false, isMobile}: PatentProps) {
     }
 
 
-
+    console.log(patent)
     return (
         <div style={styles.container}>
             {(patent?.messages.length > 0 && !isPayment) &&
@@ -101,7 +101,7 @@ function Patent({patent, isPayment = false, isMobile}: PatentProps) {
                 </div>
                 <div style={{ ...styles.main}}>
                     <div style={{ ...styles.column}}>
-                        <p style={{...globalStyles.text24, ...globalStyles.textBold, color: getTextColor(payedDays)}}>{ patent.firstName + " " + patent.lastName + " " + patent.patronymic.charAt(0) + "."}</p>
+                        <p style={{...globalStyles.text16, ...globalStyles.textBold, color: getTextColor(payedDays)}}>{localStorage.getItem("fullName")}</p>
                     </div>
                     <div style={{...styles.column, ...styles.payedDaysContainer}}>
                         <div style={{ ...styles.radius, backgroundColor: getColorProgress(payedDays)}}>
@@ -111,25 +111,25 @@ function Patent({patent, isPayment = false, isMobile}: PatentProps) {
                     </div>
                     <div style={{ ...styles.column}}>
                         <div style={isMobile? {...styles.columnInfo} : {...styles.row}}>
-                            <p style={{...globalStyles.text16}}>Выдан: </p>
-                            <p style={{...globalStyles.text16, ...globalStyles.textBold, color: getTextColor(payedDays)}}>{formatDate(patent.issued)}</p>
+                            <p style={{...globalStyles.text12}}>Выдан: </p>
+                            <p style={{...globalStyles.text12, ...globalStyles.textBold, color: getTextColor(payedDays)}}>{formatDate(patent.issued)}</p>
                         </div>
                         <div style={isMobile? {...styles.columnInfo} : {...styles.row}}>
-                            <p style={{...globalStyles.text16}}>Дата выдачи: </p>
-                            <p style={{...globalStyles.text16, ...globalStyles.textBold, color: getTextColor(payedDays)}}>{formatDate(patent.dateOfIssue)}</p>
+                            <p style={{...globalStyles.text12}}>Дата выдачи: </p>
+                            <p style={{...globalStyles.text12, ...globalStyles.textBold, color: getTextColor(payedDays)}}>{formatDate(patent.dateOfIssue)}</p>
                         </div>
                         <div style={isMobile? {...styles.columnInfo} : {...styles.row}}>
-                            <p style={{ ...globalStyles.text16}}>Срок действия до: </p>
-                            <p style={{...globalStyles.text16, ...globalStyles.textBold, color: getTextColor(payedDays)}}>{formatDate(patent.expirationDate)}</p>
+                            <p style={{ ...globalStyles.text12}}>Срок действия до: </p>
+                            <p style={{...globalStyles.text12, ...globalStyles.textBold, color: getTextColor(payedDays)}}>{formatDate(patent.expirationDate)}</p>
                         </div>
                         <div style={isMobile? {...styles.columnInfo} : {...styles.row}}>
-                            <p style={{...globalStyles.text16}}>Стоимость патента: </p>
-                            <p style={{...globalStyles.text16, ...globalStyles.textBold, color: getTextColor(payedDays)}}>{patent.price / 100}р</p>
+                            <p style={{...globalStyles.text12}}>Стоимость патента: </p>
+                            <p style={{...globalStyles.text12, ...globalStyles.textBold, color: getTextColor(payedDays)}}>{patent.price / 100}р</p>
                         </div>
                         {payedDays < 0?
                             <div style={isMobile? {...styles.columnInfo} : {...styles.row}}>
-                                <p style={{...globalStyles.text16, ...globalStyles.textRed, ...globalStyles.textBold}}>Задолжность дней: </p>
-                                <p style={{...globalStyles.text16, ...globalStyles.textRed, ...globalStyles.textBold}}>{Math.abs(payedDays)}</p>
+                                <p style={{...globalStyles.text12, ...globalStyles.textRed, ...globalStyles.textBold}}>Задолжность дней: </p>
+                                <p style={{...globalStyles.text12, ...globalStyles.textRed, ...globalStyles.textBold}}>{Math.abs(payedDays)}</p>
                             </div>
                             :
                             <></>

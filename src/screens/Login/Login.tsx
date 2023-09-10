@@ -8,6 +8,7 @@ import BlueButton from "../../components/ui/button/BlueButton";
 import Modal from "../../components/ui/Modal/Modal";
 import { getPersonId } from "../../api/getPersonId/getPersonId";
 import { useNavigate } from 'react-router-dom';
+import config from "../../config.json";
 
 interface LoginProps {
     setIsAuthorized: (isAuthorized: boolean) => void;
@@ -56,8 +57,7 @@ function Login({ setIsAuthorized }: LoginProps) {
         <div style={styles.container}>
             <img src={logo} alt="Logo" style={styles.logo} />
             <p style={{ ...globalStyles.textWhite, ...globalStyles.textBold, ...globalStyles.text24, ...globalStyles.textCenter }}>
-                Личный кабинет мигранта.<br />
-                Патенты московской области
+                {config.text}
             </p>
             <div style={styles.formContainer}>
                 <InputMask
