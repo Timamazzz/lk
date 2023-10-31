@@ -88,7 +88,6 @@ function Patent({patent, isPayment = false, isMobile}: PatentProps) {
     }
 
 
-    console.log(patent)
     return (
         <div style={styles.container}>
             {(patent?.messages.length > 0 && !isPayment) &&
