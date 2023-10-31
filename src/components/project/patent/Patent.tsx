@@ -112,7 +112,7 @@ function Patent({patent, isPayment = false, isMobile}: PatentProps) {
                     <div style={{ ...styles.column}}>
                         <div style={isMobile? {...styles.columnInfo} : {...styles.row}}>
                             <p style={{...globalStyles.text12}}>Выдан: </p>
-                            <p style={{...globalStyles.text12, ...globalStyles.textBold, color: getTextColor(payedDays)}}>{formatDate(patent.issued)}</p>
+                            <p style={{...globalStyles.text12, ...globalStyles.textBold, color: getTextColor(payedDays)}}>{patent.issued}</p>
                         </div>
                         <div style={isMobile? {...styles.columnInfo} : {...styles.row}}>
                             <p style={{...globalStyles.text12}}>Дата выдачи: </p>

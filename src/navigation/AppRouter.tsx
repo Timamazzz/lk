@@ -17,7 +17,7 @@ interface RouterProps {
 function AppRouter({ isAuthorized, setIsAuthorized, isMobile }: RouterProps) {
     return (
         <Router>
-            <div>
+            <div style={{position: "relative", minHeight: "100%", display: "grid"}}>
                 {isAuthorized && <Header setIsAuthorized={setIsAuthorized} isMobile={isMobile} /> }
                 <Routes>
                     {isAuthorized ? (
