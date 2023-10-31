@@ -6,6 +6,7 @@ export async function getPatents(personId: string) {
         const params = { personId };
         const response = await get(endpoint, params);
 
+        console.log('response', response)
         const sortedResponse = [...response];
 
         sortedResponse.sort((a, b) => new Date(b.dateOfIssue).getTime() - new Date(a.dateOfIssue).getTime());

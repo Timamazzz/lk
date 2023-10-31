@@ -35,6 +35,8 @@ function Patent({patent, isPayment = false, isMobile}: PatentProps) {
         else
             setSum(0)
 
+        console.log('patent', patent)
+
     },[month, debtPrice, patent])
     const goToPayment = () => {
         if (!isPayment)
